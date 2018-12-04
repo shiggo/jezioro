@@ -1,0 +1,601 @@
+---
+title: "An Introduction to using R at PEARL"
+author: "Adam Jeziorski"
+date: "Last Updated: `r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: true  ## headerrmarkdown::html_vignette
+fig.caption: yes
+vignette: >
+  %\VignetteIndexEntry{RGuide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{dplyr, ggplot2, magrittr, mapproj, rgdal, rioja, rmarkdown}
+---
+```{r, echo=FALSE, results='hide', message=FALSE}
+library(dplyr)
+library(ggplot2)
+library(jezioro)
+library(magrittr)
+library(mapproj)
+library(rgdal)
+library(rioja)
+library(rmarkdown)
+```
+
+# Introduction
+Despite countless blog posts, textbooks, and online courses on R already littering the internet, this is an attempt at an overview of how R is typically used in the paleolimnological analyses performed at [PEARL](http://post.queensu.ca/~pearl/). 
+
+The purpose of the guide is to aid both new and experienced users refine the many inevitable internet searches prefaced with [*"r help ..."*](
+https://www.google.ca/search?q=r+help&oq=r+help&aqs=chrome..69i57.1854j0j8&sourceid=chrome&ie=UTF-8).
+
+Although the guide begins with basic concepts and usage of R, the majority of its content is focused on specific packages and functions commonly used by members of PEARL. The guide was created using [R Markdown](http://rmarkdown.rstudio.com/), specifically to allow easy updates and its gradual evolution over time. Therefore, please share any suggestions you may have that can be incorporated and improve future versions.
+
+# Fundamental Concepts
+## What is R?
+[R](https://en.wikipedia.org/wiki/R_(programming_language)) is an open-source programming language and software environment for statistical computing and graphics. R is freely available for Linux, macOS, and Windows and the current version can be obtained directly from the project website: https://www.r-project.org/.
+
+## R vs. RStudio
+As R is a command line program, many people choose to control it through a graphical interface. There are several different graphical interfaces or integrated development environments (IDE) to choose from, but the one most commonly used at PEARL is [RStudio](https://en.wikipedia.org/wiki/RStudio). RStudio is an open-source IDE for R, freely available for Linux, macOS, and Windows, and its current version can be obtained directly from its project website: https://www.rstudio.com/. 
+
+RStudio is not required for anything described in this guide, it simply provides multiple panes, menus, and buttons to make some aspects of R more accessible. However, for simplicity, the guide assumes RStudio is installed, and that if you choose to either use R on its own or with a different IDE, that you are also capable of translating the operations to your particular setup.
+
+## Objects, Classes, and Functions
+Objects are the fundamental elements of the R programming language. Within R, an object is simply a data structure with some attributes. Therefore, essentially everything that you work with during an R session will be an object of some kind.
+
+Most objects have a class attribute that provides some definition regarding the type of data it contains. Classes include things like 'character', 'numeric', 'logical', 'data.frame' and 'function'.
+
+Functions are the principal tools used in R. Functions are objects that can take arguments as input, and return a new object as output. Some are quite simple (e.g. `mean` returns the mean value of a numeric object), whereas others are much more complex (e.g. those used to perform ordinations). Many different functions are available within a base installation of R; however, as a user becomes familiar with R, they may write some new functions, these can then be shared and distributed through packages.
+
+## Packages
+All  R  functions  and  datasets  are  stored  in *packages*, including everything contained within a base install of R. However, this base functionality can be extended through external packages that contain additional functions (along with their documentation). It may be helpful to view this relationship as packages are the 'apps' available for the R 'operating system'. The main source for external packages is the [Comprehensive R Archive Network (CRAN) repository](https://cran.r-project.org/web/packages/) (the 'app store' in the OS analogy).
+
+It is also possible to install external packages from a local archive file (e.g. .zip or .tar.gz), and this is how the `jezioro` package (that contains several functions and datasets created at PEARL) is currently distributed. The latest version of `jezioro` is always available on the [PEARL website](http://post.queensu.ca/~pearl/Methods.htm). 
+
+R is able to access the CRAN repository directly, and external packages are typically installed either through the console, or using an IDE such as RStudio. 
+
+### Installing a package using the console
+To install the package `rmarkdown` using the console, you would enter the following command into the lower left pane of RStudio (the 'Console' pane):
+```
+install.packages("rmarkdown")
+```
+However, the functions contained within that package do not become available until it is loaded into memory with the `library` command.
+```
+library("rmarkdown")
+```
+
+### Installing a package using RStudio
+To install a package using RStudio:
+
+- click on the 'Packages' tab of the lower right pane of RStudio (the 'Viewer' pane)
+- click the 'Install' button
+- at the prompt, type the name of the package you wish to install (e.g. `rmarkdown`)
+- finally, click the 'Install' button and the package will be downloaded and installed
+
+### Useful packages in the CRAN repository
+The `jezioro` package contains several functions and data sets written at PEARL and is distributed as an archive file; however many other packages useful to the analyses performed at PEARL are available from the CRAN repository. These include: 
+
+- `analogue` - Gavin Simpson's stat package needed for some WA techniques
+- `dplyr` - A set of tools for working with data frame like objects
+- `ggplot2` - A system for 'declaratively' creating graphics, based on the book "The Grammar of Graphics"
+- `magrittr` - Provides a mechanism to chain commands with a forward-pipe operator, `%>%`
+- `rioja` - Functions for the analysis of Quaternary science data (the successor to C2)
+- `rLakeAnalyzer` - Physical limnology package
+- `rmarkdown` - A package for converting R Markdown documents into a variety of formats
+- `roxygen2` - A package to simplify documenting your own packages
+- `vegan` - Ordination methods, diversity analysis and other functions for community and vegetation ecologists
+
+## Help Documentation
+All objects within R should have documentation accessible with the `help` function. To bring up the documentation for a function, package, or dataset, enter 'help("object of interest")' into the console and the help file should appear in the ‘Viewer’ pane of RStudio (on the bottom right). For example, to bring up the documentation for the `help` function itself, enter:
+```{r}
+help("help")
+```
+
+The `?` is a shortcut for the help function, so entering the following will also bring up the documentation for the `help` function.
+```{r}
+?help
+```
+
+The help documentation for a package (which should contain a list of all of its functions) is accessed in the same way. So to bring up the help file for the `rmarkdown` package installed earlier, use:
+```{r}
+?rmarkdown
+```
+However, this will generate an error if the package is not loaded into memory. To search for help documentation on objects that are installed, but not currently loaded, use a double question mark `??`.
+```{r}
+??rmarkdown
+```
+
+
+# Basic Usage
+## The Console
+After installing both R and RStudio, and then starting RStudio the screen will be split into four panes as shown in the official [RStudio Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf). 
+
+By default these panes are:
+
+- Upper left, the 'Source' pane (where files and data are displayed)
+- Upper right, the 'Environment' pane (which displays objects and packages currently memory and a history of commands)
+- Lower right, the 'Viewer' pane (which contains several tabs including a file manager, one for plots, a package browser, and one for help files)
+- Lower left, the 'Console' pane (where commands are entered) 
+
+Typing directly into the console is the simplest way to use R. For example, entering
+```
+2+2
+```
+will return the output,
+```{r, echo=FALSE}
+2+2
+```
+Where the `[1]` indicates that the first element of the result (in this case, there is only one element) has a value of `4`.
+
+As you start performing more complex operations, you will find that it is easier to enter your input in the 'Source' pane, where it can saved to a file for later use, rather than retyping everything each time. These R script files typically have an *.R* extension. 
+
+Individual lines can be sent from the 'Source' pane to the console, by moving the cursor to the desired line and either hitting the *'Run'* button, or using the keyboard shortcut *'Ctrl + Enter'* (or *'Ctrl + R'*). The same can also be done for selections of text.
+
+## Assignment
+### Assigning a numeric value to an object
+The next logical step after determining that 2+2 = 4, is storing that information for later use. This is done by 'assigning' the value '4' to an object we will call `x` by using the assignment operator `<-` (you could also use `=`, but that has some restrictions on its use, whereas `<-` can be used anywhere). 
+```{r}
+x <- 4
+```
+You should now see `x` and its value displayed in the 'Environment' pane. Which means it is stored in memory and can be called back again using the console.
+```{r}
+x
+```
+Inspecting the class of `x` with the `class` function reveals that it is 'numeric'.
+```{r}
+class(x)
+```
+Which means that it can be used in arithmetic operations.
+```{r}
+x + 2
+```
+`x` currently contains only one element (i.e. it has a length of 1), but this can be changed by reassigning multiple values to `x` using the `c` or 'combine' function. Below we reassign `x` with two 8's, changing it to a numeric vector with two elements.
+```{r}
+x <- c(8, 8)
+x
+class(x)
+length(x)
+```
+Note that `x` can still be used in arithmetic operations. Adding '5' to `x` will add '5' to each of element of `x`.
+```{r}
+x + 5
+```
+
+### Numeric vs. Character
+As mentioned in the introduction, 'numeric' is one of several available classes. Another class that you will frequently encounter is 'character'. A 'character' element is typically a string of alphanumeric characters, such as words.
+```{r}
+y <- "blue"
+class(y)
+```
+We can combine 'character' elements into a vector with the `c` function.
+```{r}
+y <- c(y, "red", y)
+y
+```
+Predictably, errors occur when you try to perform addition on characters.
+```{r error=TRUE}
+y + 2 
+```
+However, what about if you have a vector with both data types?
+```{r error=TRUE}
+z <- c(2, 4, 6, "blue")
+class(z)
+z + 2
+```
+So, it only takes one 'character' element, to force the assignment of the `z` object to the 'character` class.
+
+## Classes
+### Vectors
+Within R, all objects have a class. The class defines what kind of information the object contains and how it may be used. The previous example demonstrated some characteristics of 'numeric' vs 'character' objects. 
+
+In general, data will most often be classified as either a vector, data frame or matrix. 
+
+As seen previously, a `vector` is a sequence of data elements.
+```{r}
+x <- c(1,2,3)
+y <- c(2,4,6)
+```
+
+Operations can be performed on the `vector` as a whole.
+```{r}
+x+2
+```
+Or on individual elements of a `vector` using `[]` to indicate which element.
+```{r}
+y[3]*2
+```
+
+Or using multiple vectors.
+```{r}
+x+y
+```
+
+### Matrices
+A `matrix` is a two dimensional array. So lets make one by combining `x` and `y` using the `rbind` function. Note that in addition to the data elements, `table1` also has row names ('x' and 'y') and column names ([,1], [,2], and [,3]).
+```{r}
+table1 <- rbind(x, y)
+table1
+class(table1)
+```
+
+Individual elements of a `matrix` can be also accessed using `[]` to indicate the indices of each dimension separated by a comma (row then column).
+```{r}
+table1[2,3]
+table1[1,3] + table1[2,1]
+table1*2
+```
+
+### Matrices vs. Data Frames
+A `matrix` can contain only one type of data (i.e. only 'numeric' or only 'character'). In contrast, a `data frame` is a table of data that can (but doesn't necessarily) contain mixed data types. They can be created with `data.frame` function.
+
+```{r}
+table2 <- data.frame(Col1=c(1, 2), Col2=c("black", "white"))
+table2
+class(table2)
+```
+
+There are many more classes within R, but initially you will likely spend most of your time working with matrices and data frames. It is important to stay mindful of the differences between these two classes.
+
+A matrix can be changed into a data frame using the `as.data.frame` function.
+```{r error=TRUE}
+x <- as.data.frame(table1)
+class(x)
+x
+```
+
+Similarly, a data frame can be changed into a matrix by using the `as.matrix` function. However, matrices must contain only one data type, and a number can be converted into a character, but not vice versa. Thus, when converting `table2` to a matrix, the numeric values are converted to character values (denoted in quotation marks), and are no longer available for arithmetic operations.
+```{r error=TRUE}
+x <- as.matrix(table2)
+class(x)
+x
+x[1,1]*2
+```
+
+This becomes important when trying to combine matrices of different data types. For example, lets combine `table1` a numeric matrix, with `x` (the copy of `table2` with everything converted to 'character' data) using the `cbind` function.
+```{r error=TRUE}
+x <- cbind(table1, x)
+x
+```
+
+By default, output inherits class from the input. So here, `x` must be a matrix, and matrices can contain only one data type, therefore all the numeric values in both `table1` and `x` are converted to character values (as denoted by the quotation marks).
+```{r error=TRUE}
+class(x)
+x[1,3] + x[2,1]
+```
+
+In this case, it would probably make more sense for the output to be a data frame, containing both numeric and character columns. One way to do this, is by nesting the `as.data.frame` function within the `cbind` function. As we are now combining objects of different classes, R must choose a class for the output object. In this case it defaults to a data frame, as this can be done withoutchange any of the data with either object. 
+```{r error=TRUE}
+x <- cbind(table1, as.data.frame(table2))
+class(x)
+x
+x[1,3] + x[2,1]
+```
+
+## Functions
+The past few examples should have provided some insight regarding the potential strength of functions. Functions allow very complex operations and can be combined in many ways.
+
+Functions follow the general form: *function(input, optional arguments)*. 
+
+For example, the function `round`, will round an input value 'x' to 'n' significant digits, when `round(x,digits=n)` is entered into the console. Replacing 'x' and 'n' with actual numbers gives something like:
+```{r}
+round(3.141593, digits=5)
+round(3.141593, digits=2) 
+```
+
+The available documentation for a function can be viewed by entering a `?` before its name into the console.
+```{r}
+?round
+```
+
+A base install of R contains many functions and so far we have already used: `class`, `c`,  `length`,  `rbind`, `cbind`, `as.data.frame`, `as.matrix`, and `round`. It is also possible to define your own (that can incorporate other functions) with the syntax: *function(input){operations}*.
+
+For example, we can create a function that will calculate what percentage each element of some input data contributes to the total sum of the input: `function(x){x/sum(x)}`. Assigning (`<-`) this function to an object called `percentage` then allows it to be applied repeatedly to different datasets.
+```{r}
+percentage <- function(x){x/sum(x)}
+```
+
+Although not particularly useful on objects containing only a single element, we can use the `c` function to *combine* several numbers into a vector, then run `percentage` on the vector as a whole.
+```{r}
+percentage(10)
+percentage(c(5,5,10))
+```
+
+## Importing and Exporting Files
+Most of the data you will want to analyze with R, will be generated outside of R. Thus, it will need to be imported before you work with it. The simplest procedure to import data files is:
+
+- First convert your data file into .csv format (this can be done in excel or whatever spreadsheet program you are using)
+- The import will done by entering the `read.csv` function into the console along with several arguments
+- The `file=file.choose()` argument will open a dialog box that will allow you select the file you wish to import
+- The `header=T` argument will assign the top row of the imported file to the column names of the generated object
+- The `stringsAsFactors=FALSE` argument will ensure character strings stay as character strings
+
+```
+count.data <- read.csv(file=file.choose(), header=T, stringsAsFactors=FALSE)
+```
+
+Similarly, to export an object from within your R environment to a .csv file, use the `write.csv` function. If we wanted to export the object `output.data` to a .csv file, we would enter the following into the console to open up a dialog box to select the location of the new file.
+```
+write.csv(output.data, file=file.choose())
+```
+## Graphics
+In addition to statistical analyses, one of the main uses of R is the generation of high quality figures. However, creating figures with R is a complex topic, and currently beyond the scope of this guide.
+
+To begin, basic plots can be generated with the `plot` function.
+```{r}
+x <- c(1,2,3,4)
+y <- c(2,4,6,8)
+
+plot(x,y, type ='l')
+?plot
+```
+
+Complex plots are also possible with the `plot` function, but there are also alternate graphic systems available through external packages such as `ggplot2`.
+
+## Using Packages
+A few different methods for installing external packages were given in the Introduction of this guide. However, before the functions within a package become available for use, the package needs to be loaded into memory.
+
+For example, if you installed the `rmarkdown` function earlier, trying to bring up the help file for its `render` function without the package loaded should generate an error.
+```{r error=TRUE}
+?render
+```
+
+Load an installed package (in this case `rmarkdown`) into memory with the `library` function, and try again.
+``` {r}
+library(rmarkdown)
+?render
+```
+
+
+# Data Analysis Tools
+This section lists common data analysis techniques used at PEARL and the functions and/or packages that contain the tools necessary to perform them.
+
+Over time I would like to add some detailed example code for each of these techniques.
+
+## Normality
+To check your the normality of your data, you can use the Shapiro-Wilk Normality Test provided in a base installation of R by the `shapiro.test` function.
+```
+shapiro.test(input.data)
+```
+If you are dealing with a large number of variables, it may make examine all of them at once using the `apply` function.
+```
+apply(input.data, 2, shapiro.test)
+```
+## Transformations
+Data can be square-root transformed using the `sqrt` function.
+Data can be log (base 10) transformed using `log10`. Note that by default the `log` function will calculate the natural logarithm (i.e. ln).
+```
+sqrt(input.data)
+log10(input.data)
+log(input.data)
+```
+## Standardization
+The `decostand` function within the `vegan` package provides several standardization methods (e.g. 'chi square' and 'hellinger')
+```
+?decostand
+```
+### Z-Scores
+Z-scores can be calculated with the `scale` function available in a base installation of R. Checking the details of the help file reveals that `scale` has two arguments, center and scale.
+```{r}
+?scale
+```
+- If center is TRUE then centering is done by subtracting the column means (omitting NAs) of `x` from their corresponding columns
+- If scale is TRUE then scaling is done by dividing the (centered) columns of `x` by their standard deviations if center is TRUE, and the root mean square otherwise.
+
+Therefore, z-scores for `input.data` can be calculated with:
+```
+scale(input.data, center=TRUE, scale=TRUE)
+```
+
+## Correlation
+Correlations (Pearson, Kendall, and Spearman) can be examined using the `cor` function.
+```
+cor(input.data)
+```
+
+A nice correlation matrix can be produced using the `corrplot` package.
+```
+library(corrplot)
+newdatacor = cor(my.dat[1:13])
+corrplot(newdatacor, method = "number")
+
+data(mtcars)
+M <- cor(mtcars)
+set.seed(0)
+
+corrplot(M, method = "number", col = "black", cl.pos = "n")
+```
+
+##Species Diversity (Hill's N2)
+Hill's N2 values (Hill 1973)^[Hill MO (1973) Diversity and evenness: a unifying notation and its consequences. Ecology 54: 427-432] can be calculated for your data using the `Hill.N2` function provided by the `rioja` package.
+```
+N2=Hill.N2(input.data, margin=2)
+```
+
+##Rarefaction
+Rarefaction can be done using the `rarefy` function provided by the `vegan` package.
+```
+?rarefy
+```
+
+## Ordination
+The tools necessary for performing ordinations are provided by the `vegan` package.
+
+A DCA can be performed using the function `decorana`
+Somewhat confusingly, both PCAs and RDAs are performed using the function `rda` (If only one input matrix is provided it will run a PCA, if two are provided it will run an RDA)
+Biplots can be produced from an rda object by the function `biplot`
+
+## ANOSIM and SIMPER
+An ANOSIM can be performed using the `anosim` function provided by the `vegan` package.
+Similarity percentages can be determined with the `simper` function also provided by the `vegan` package.
+
+indVAL?
+
+## Transfer Functions
+Transfer functions can be built using the `WA` function provided by the `rioja` package.
+
+For example, the midge/VWHO calibration set described in detail by Quinlan and Smol^[Quinlan R, Smol JP (2001) Chironomid-based inference models for estimating end-of-summer hypolimnetic oxygen from south-central Ontario shield lakes. Freshwater Biology 46: 1529-1551] ^[Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inferring past hypolimnetic oxygen. Journal of Paleolimnology 44: 43-50] is provided as a dataset called `vwhoQuinlan2010` by the  `jezioro` package. 
+
+Therefore the Quinlan and Smol midge/VWHO model can be built using the following code:
+``` {r, eval=FALSE, echo=TRUE}
+library(jezioro)
+library(rioja)
+data(vwhoQuinlan2010)
+vwho.model <- WA(vwhoQuinlan2010[,3:47], vwhoQuinlan2010[,2], tolDW=TRUE)
+```
+
+``` {r, eval=TRUE, echo=FALSE}
+library(jezioro)
+library(rioja)
+#Hack due to vignette build failing, as unable to access the Rda file during build
+vwhoQuinlan2010 <- read.csv(file="data/vwhoQuinlan2010.csv", header =T)
+vwho.model <- WA(vwhoQuinlan2010[,3:47], vwhoQuinlan2010[,2], tolDW=TRUE)
+```
+The Quinlan and Smol papers settled on the WA.inf.tol_XVal model as having the best performance metrics (RMSE=1.98 mg/L, R2=0.5998). To evaluate that the `vwho.model` object has the same performance as the model described by Quinlan and Smol, use the `crossval` function also provided by `rioja`.
+
+``` {r}
+crossval(vwho.model, cv.method="loo", verbose=FALSE, ngroups=10, nboot=100, h.cutoff=0, h.dist=NULL)
+```
+Confident that your model is the same as the one described in the manuscripts, it can then be applied down-core to midge sedimentary assemblage data to reconstruct VWHO concentrations.
+
+## Multivariate Regression Trees
+Regression trees can be constructed using the `rpart` package.
+
+
+## Breakpoint Analysis
+Davies Test
+
+
+# Advanced Usage
+## Data Manipulation Verbs
+The `dplyr` package provides several functions that act intuitively as verbs for data manipulation.
+
+These functions include: `filter`, `select`, `mutate`, `arrange`, and `summarise`.
+
+## Forward Pipe: `%>%`
+The `%>%` command provided by the `magrittr` package functions similarly to the Unix pipe "|" command. It "pipes" the output from one function directly into the next (as its first argument), allowing intermediate steps to be bypassed, reducing the need for repetition in the code.
+
+Note that due to the special characters in `%>%`, pulling up it's help file requires:
+```{r}
+?magrittr::`%>%`
+```
+A simple example:
+```{r}
+x <- c(5,4,3,2,1)
+x %>% mean
+```
+
+A more complicated example using `%>%` in combination with some of the data frame manipulation verbs provided by `dplyr`:
+
+Import the `vwhoQuinlan2010` dataset from `jezioro`, and convert it to a data frame.
+```{r, eval=FALSE, echo=TRUE}
+data(vwhoQuinlan2010)
+vwhoQuinlan2010 <- as.data.frame(vwhoQuinlan2010)
+```
+```{r, eval=TRUE, echo=FALSE}
+vwhoQuinlan2010 <- read.csv(file="data/vwhoQuinlan2010.csv", header =T)
+vwhoQuinlan2010 <- as.data.frame(vwhoQuinlan2010)
+```
+Calculate the mean VWHO of those lakes (rows) where TANYSL <10 and MICROP >40.
+```{r}
+filter(vwhoQuinlan2010, MICROP>30) %>% filter(TANYSL<10) %>% summarise(mean(VWHO))
+```
+
+
+## Plotting with `ggplot2`
+`ggplot2` is a data visualization package that implements concepts outlined in 'The Grammar of Graphics' a book 'about grammatical rules for creating perceivable graphs'.
+
+The syntax used to produce plots with `ggplot2` is quite different from that of the base graphics system. For example:
+
+```{r}
+library(ggplot2)
+
+activities <- read.csv(file="data/ggplot2_activities.csv", header =T)
+
+ggplot(activities, aes(x=Lake, y=Pb210, ymin=Pb210-Pb210err, ymax=Pb210+Pb210err)) +
+  theme(legend.position=c(0.90, 0.85), axis.text.x=element_text(size=8)) +
+  geom_point(aes(reorder(Lake, -Pb210))) +
+  geom_errorbar(aes(reorder(Lake, -Pb210), colour=Interval)) +
+  ylab("Total 210Pb Activity (Bq/kg)")
+```
+
+The `ggplot2` package is able to construct very complex figures ([click here for an extensive list of examples](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)), and there are extensive resources available detailing its use. However, at PEARL we occasionally need to break some of its rules (e.g multiple y-axes), thus `ggplot2` is not the best tool for producing stratigraphies that show both depth and age.
+
+## Basic Maps
+With the appropriate shapefiles, basic maps can be generated using `ggplot2` and `rgdal` (Bindings for the 'Geospatial' Data Abstraction Library).
+
+```{r}
+library(ggplot2)
+library(rgdal)
+```
+
+For example, to add a few points to an outline of Ontario:
+
+1) Read in the shapefile, and convert it to a dataframe for use with `ggplot2`.
+
+```{r, results='hide', message=FALSE}
+ontario<-readOGR("data/ontarioShapefile/Ont2.shp", layer="Ont2")
+ontario_df <- fortify(ontario)
+```
+
+2) Import (or in this example create) a dataframe containing the data for the plot.
+
+```{r}
+sites <- data.frame(name=c("queens", "lake"), decLatitude=c(44.22, 45.18), decLongitude=c(-76.50, -78.83), stringsAsFactors = FALSE)
+```
+
+3) Generate the plot with `geom_polygon` and add the points with `geom_point`. Note that by default this will use a Mercator projection centered on the Prime Meridian.
+
+```{r}
+map <- ggplot() + 
+  geom_polygon(data = ontario_df, aes(x = long, y = lat, group = group), fill="grey40") +
+  geom_point(data=sites, aes(x=decLongitude, y=decLatitude))
+print(map)
+```
+
+4) The projection can be changed with `coord_map`. For example, to change the previous map to a Lambert projection o a Lambert projection with a true scale between latitudes of 40 and 70 degrees N:
+``` {r}
+#The projection can be changed using 'coord_map'
+map <- map +
+  coord_map("lambert", lat0=40, lat1=60)
+print(map)
+```
+
+## Composite Plots
+
+
+## Stratigraphies
+Stratigraphies can be produced using the `strat.plot` function provided by the `rioja` package.
+
+## Animated Plots
+https://github.com/dgrtwo/gganimate
+
+
+## R Markdown
+R Markdown is an authoring framework that allows a single file to both save and execute code, and also generate high quality formatted reports with the `rmarkdown` package.
+
+This document is maintained in a single file written in R Markdown called `RGuide.rmd`, the html file is then generated with:
+```
+library(rmarkdown)
+render("labGuide.rmd")
+```
+
+# Additional R Resources
+## Official Documentation
+- [An Introduction to R](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf)
+
+## Websites
+- [The RStats Subreddit](https://www.reddit.com/r/rstats/)
+- [Quebec Centre for Biodiversity Science - R Workshops](http://qcbs.ca/wiki/r)
+
+## Cheat Sheets
+- [RStudio Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf)
+- [Cheat Sheet for R Markdown](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
+
+## Books
+- [Adler J: R in a Nutshell](https://shop.oreilly.com/product/0636920022008.do)
+- [Gillespie C, Lovelace R: Efficient R Programming](https://bookdown.org/csgillespie/efficientR/)
+- [Grolemund G, Wickham H: R for Data Science](http://r4ds.had.co.nz/)
+- [Wilkinson L: The Grammar of Graphics](https://www.springer.com/us/book/9780387245447)
