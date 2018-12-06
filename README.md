@@ -16,4 +16,18 @@ The package includes the following functions (along with example data to illustr
 
 The package also contains some commonly used calibration sets to facilitate the construction of transfer functions for application to individual sediment cores:
 * *tpHall1996*: diatom-inferred TP calibration set of 54 south-central Ontario lakes described in Hall and Smol (1996)
-* *vwhoQuinlan2010*: dipteran-inferred VWHO calibration set of 54 south-central Ontario lakes described in Quinlan and Smol (2001; 2010) 
+* *vwhoQuinlan2010*: dipteran-inferred VWHO calibration set of 54 south-central Ontario lakes described in Quinlan and Smol (2001; 2010)
+
+
+## Documentation
+The [jezioro User Guide](https://shiggo.github.io/jezioro/vignettes/jezioroGuide.html) contains detailed information on the package contents and their use.
+
+The package also contains [An Introduction to using R at PEARL](https://shiggo.github.io/jezioro/vignettes/RGuide.html) which is a general overview of how to use R to perform the more common analyses performed at PEARL.
+
+
+## Dependencies
+The package dependencies are due to running the examples in the overview vignetter and include: *dplyr*, *ggplot2*, *knitr*, *magrittr*, *mapproj*, *rgdal*, *rioja*, and *rmarkdown*.
+
+
+## Compiling and Installing
+To build *jezioro*, first download and extract the jezioro-master.zip archive, then use the *build* command provided by the R *devtools* package to build a local package archive to install.
