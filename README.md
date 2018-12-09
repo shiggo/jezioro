@@ -20,14 +20,21 @@ The package also contains some commonly used calibration sets to facilitate the 
 
 
 ## Documentation
-The [jezioro User Guide](https://shiggo.github.io/jezioro/vignettes/jezioroGuide.html) contains detailed information on the package contents and their use.
+The package also contains two guides or vignettes:
 
-The package also contains [An Introduction to using R at PEARL](https://shiggo.github.io/jezioro/vignettes/RGuide.html) which is a general overview of how to use R to perform the more common analyses performed at PEARL.
+* The [user guide](https://shiggo.github.io/jezioro/vignettes/jezioroGuide.html) provides detailed information on the functions and data sets within the package as well as examples of their use.
+
+* A [general guide to the use of R at PEARL](https://shiggo.github.io/jezioro/vignettes/RGuide.html) is also present. This guide is an ongoing attempt to provide an overview of the most commonly used functions and packages relevant to the analyses performed at PEARL.
 
 
 ## Dependencies
 The package dependencies are due to running the examples in the overview vignetter and include: *dplyr*, *ggplot2*, *knitr*, *magrittr*, *mapproj*, *rgdal*, *rioja*, and *rmarkdown*.
 
 
-## Compiling and Installing
-To build *jezioro*, first download and extract the jezioro-master.zip archive, then use the *build* command provided by the R *devtools* package to build a local package archive to install.
+## Building and Installing
+The simplest way to obtain a working install of *jezioro* is directly from the github repository using the *devtools* package for the R sofware environment. However, this method will not provide a local copy of vignettes/guides.
+```
+library("devtools")
+install_github("shiggo/jezioro")
+```
+Alternately, download the source (green button on the github page), using the "Download ZIP" option, extract the archive and run the build function pointing the pkg argument at the extracted folder to produce a zip binary version of the package that can be installed in your local R environment using the "install from a local archive" option.
