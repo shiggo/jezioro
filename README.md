@@ -28,13 +28,14 @@ The package also contains two guides or vignettes:
 
 
 ## Dependencies
-The package dependencies are due to running the examples in the overview vignetter and include: *dplyr*, *ggplot2*, *knitr*, *magrittr*, *mapproj*, *rgdal*, *rioja*, and *rmarkdown*.
+All dependencies are related to the various examples in the general guide vignette and include: *dplyr*, *ggplot2*, *knitr*, *magrittr*, *mapproj*, *rgdal*, *rioja*, and *rmarkdown*.
 
 
-## Building and Installing
-The simplest way to obtain a working install of *jezioro* is directly from the github repository using the *devtools* package for the R sofware environment. However, this method will not provide a local copy of vignettes/guides.
+## Installation
+The most recent version of the *jezioro* package can be downloaded from the "release" tab. Both source code and compiled binaries (for windows + macOS/linux) are available there as assets. These binaries can then be installed as ["a local file"](https://www.rdocumentation.org/packages/utils/versions/3.5.1/topics/install.packages).
+
+Alternately, *jezioro* can be installed directly into a local R envrionment from the github repository using the *devtools* package. However, note that this method will not provide a local copy of vignettes/guides.
 ```
 library("devtools")
 install_github("shiggo/jezioro")
 ```
-Alternately, download the source (green button on the github page), using the "Download ZIP" option, extract the archive and run the build function pointing the pkg argument at the extracted folder to produce a zip binary version of the package that can be installed in your local R environment using the "install from a local archive" option.
