@@ -456,9 +456,27 @@ vwho.model <- WA(vwhoQuinlan2010[,3:47], vwhoQuinlan2010[,2], tolDW=TRUE)
 The Quinlan and Smol papers settled on the WA.inf.tol_XVal model as having the best performance metrics (RMSE=1.98 mg/L, R2=0.5998). To evaluate that the `vwho.model` object has the same performance as the model described by Quinlan and Smol, use the `crossval` function also provided by `rioja`.
 
 ``` {r}
-crossval(vwho.model, cv.method="loo", verbose=FALSE, ngroups=10, nboot=100, h.cutoff=0, h.dist=NULL)
+library(rioja)
+rioja::crossval(vwho.model, cv.method="loo", verbose=FALSE, ngroups=10, nboot=100, h.cutoff=0, h.dist=NULL)
 ```
 Confident that your model is the same as the one described in the manuscripts, it can then be applied down-core to midge sedimentary assemblage data to reconstruct VWHO concentrations.
+
+## Merging data sets
+Data sets can be merged on common columns using the `join` function provided by the `analogue` package.
+
+This can be useful when comparing downcore data sets with a calibration set, by creating a merged data set adding rows/columns (populated by zeroes) as necessary for those taxa absent from either of the original datasets.
+
+```
+library(analogue)
+calSet <- data.frame(taxa1=c(0.25, 0.75, 0.25),taxa2=c(0.20, 0.05, 0.35), taxa3=c(0.55, 0.20, 0.50), row.names=c("cal1", "cal2", "cal3"))
+
+testSet <- data.frame(taxa1=c(0.25, 0.25, 0.50),taxa4=c(0.75, 0.10, 0.15), row.names=c("test1", "test2", "test3"))
+
+join(calSet, testSet, type="outer", split=FALSE)
+```
+
+## Analog Matching
+When comparing fossil data with a calibration set (i.e. when using a transfer function), identifying whether there are close modern analogs present in the calibration set can be done using the `analog` function provided by the `analogue` package.
 
 ## Multivariate Regression Trees
 Regression trees can be constructed using the `rpart` package.

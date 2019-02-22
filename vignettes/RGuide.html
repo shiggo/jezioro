@@ -596,7 +596,8 @@ library(rioja)
 data(vwhoQuinlan2010)
 vwho.model &lt;- WA(vwhoQuinlan2010[,3:47], vwhoQuinlan2010[,2], tolDW=TRUE)</code></pre>
 <p>The Quinlan and Smol papers settled on the WA.inf.tol_XVal model as having the best performance metrics (RMSE=1.98 mg/L, R2=0.5998). To evaluate that the <code>vwho.model</code> object has the same performance as the model described by Quinlan and Smol, use the <code>crossval</code> function also provided by <code>rioja</code>.</p>
-<pre class="r"><code>crossval(vwho.model, cv.method=&quot;loo&quot;, verbose=FALSE, ngroups=10, nboot=100, h.cutoff=0, h.dist=NULL)</code></pre>
+<pre class="r"><code>library(rioja)
+rioja::crossval(vwho.model, cv.method=&quot;loo&quot;, verbose=FALSE, ngroups=10, nboot=100, h.cutoff=0, h.dist=NULL)</code></pre>
 <pre><code>## 
 ## Method : Weighted Averaging
 ## Call   : WA(y = vwhoQuinlan2010[, 3:47], x = vwhoQuinlan2010[, 2], tolDW = TRUE) 
@@ -626,12 +627,27 @@ vwho.model &lt;- WA(vwhoQuinlan2010[,3:47], vwhoQuinlan2010[,2], tolDW=TRUE)</co
 ## WA.cla.tol_XVal  2.2577  0.6117   -0.0011    2.7239  48.0607</code></pre>
 <p>Confident that your model is the same as the one described in the manuscripts, it can then be applied down-core to midge sedimentary assemblage data to reconstruct VWHO concentrations.</p>
 </div>
+<div id="merging-data-sets" class="section level2">
+<h2><span class="header-section-number">4.10</span> Merging data sets</h2>
+<p>Data sets can be merged on common columns using the <code>join</code> function provided by the <code>analogue</code> package.</p>
+<p>This can be useful when comparing downcore data sets with a calibration set, by creating a merged data set adding rows/columns (populated by zeroes) as necessary for those taxa absent from either of the original datasets.</p>
+<pre><code>library(analogue)
+calSet &lt;- data.frame(taxa1=c(0.25, 0.75, 0.25),taxa2=c(0.20, 0.05, 0.35), taxa3=c(0.55, 0.20, 0.50), row.names=c(&quot;cal1&quot;, &quot;cal2&quot;, &quot;cal3&quot;))
+
+testSet &lt;- data.frame(taxa1=c(0.25, 0.25, 0.50),taxa4=c(0.75, 0.10, 0.15), row.names=c(&quot;test1&quot;, &quot;test2&quot;, &quot;test3&quot;))
+
+join(calSet, testSet, type=&quot;outer&quot;, split=FALSE)</code></pre>
+</div>
+<div id="analog-matching" class="section level2">
+<h2><span class="header-section-number">4.11</span> Analog Matching</h2>
+<p>When comparing fossil data with a calibration set (i.e. when using a transfer function), identifying whether there are close modern analogs present in the calibration set can be done using the <code>analog</code> function provided by the <code>analogue</code> package.</p>
+</div>
 <div id="multivariate-regression-trees" class="section level2">
-<h2><span class="header-section-number">4.10</span> Multivariate Regression Trees</h2>
+<h2><span class="header-section-number">4.12</span> Multivariate Regression Trees</h2>
 <p>Regression trees can be constructed using the <code>rpart</code> package.</p>
 </div>
 <div id="breakpoint-analysis" class="section level2">
-<h2><span class="header-section-number">4.11</span> Breakpoint Analysis</h2>
+<h2><span class="header-section-number">4.13</span> Breakpoint Analysis</h2>
 <p>Davies Test</p>
 </div>
 </div>
