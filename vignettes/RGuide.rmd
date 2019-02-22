@@ -359,7 +359,7 @@ To check your the normality of your data, you can use the Shapiro-Wilk Normality
 ```
 shapiro.test(input.data)
 ```
-If you are dealing with a large number of variables, it may make examine all of them at once using the `apply` function.
+If you are dealing with a large number of variables, it may make sense to examine all of them at once using the `apply` function.
 ```
 apply(input.data, 2, shapiro.test)
 ```
