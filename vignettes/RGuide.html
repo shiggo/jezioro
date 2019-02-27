@@ -221,16 +221,16 @@ div.tocify {
 
 <h1 class="title toc-ignore">An Introduction to using R at PEARL</h1>
 <h4 class="author"><em>Adam Jeziorski</em></h4>
-<h4 class="date"><em>Last Updated: 2019-02-21</em></h4>
+<h4 class="date"><em>Last Updated: 2019-02-27</em></h4>
 
 </div>
 
 
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>Despite countless blog posts, textbooks, and online courses on R already littering the internet, this is an attempt at an overview of how R is typically used in the paleolimnological analyses performed at <a href="http://post.queensu.ca/~pearl/">PEARL</a>.</p>
-<p>The purpose of the guide is to aid both new and experienced users refine the many inevitable internet searches prefaced with <a href="https://www.google.ca/search?q=r+help&amp;oq=r+help&amp;aqs=chrome..69i57.1854j0j8&amp;sourceid=chrome&amp;ie=UTF-8"><em>“r help …”</em></a>.</p>
-<p>Although the guide begins with basic concepts and usage of R, the majority of its content is focused on specific packages and functions commonly used by members of PEARL. The guide was created using <a href="http://rmarkdown.rstudio.com/">R Markdown</a>, specifically to allow easy updates and its gradual evolution over time. Therefore, please share any suggestions you may have that can be incorporated and improve future versions.</p>
+<p>Despite the countless blog posts, textbooks, and online courses focused on R that litter the internet, this document attempts to provide an overview of how R is typically used in paleolimnological analyses at <a href="http://post.queensu.ca/~pearl/">PEARL</a>.</p>
+<p>The purpose of the guide is to aid both new and experienced users refine their many inevitable internet searches prefaced with <a href="https://www.google.ca/search?q=r+help&amp;oq=r+help&amp;aqs=chrome..69i57.1854j0j8&amp;sourceid=chrome&amp;ie=UTF-8"><em>“r help …”</em></a>; as even with some familiarity with a given statistical technique, it may be unclear how to perform it using R.</p>
+<p>The guide begins with some basic information for users new to R; however, the majority of content is focused on common analyses used in paleolimnological studies and the specific packages and functions that can facilitate them. The guide was created using <a href="http://rmarkdown.rstudio.com/">R Markdown</a>, specifically to allow easy updates and a gradual evolution over time. Therefore, please share any suggestions you may have to improve future versions.</p>
 </div>
 <div id="fundamental-concepts" class="section level1">
 <h1><span class="header-section-number">2</span> Fundamental Concepts</h1>
@@ -241,17 +241,17 @@ div.tocify {
 <div id="r-vs.rstudio" class="section level2">
 <h2><span class="header-section-number">2.2</span> R vs. RStudio</h2>
 <p>As R is a command line program, many people choose to control it through a graphical interface. There are several different graphical interfaces or integrated development environments (IDE) to choose from, but the one most commonly used at PEARL is <a href="https://en.wikipedia.org/wiki/RStudio">RStudio</a>. RStudio is an open-source IDE for R, freely available for Linux, macOS, and Windows, and its current version can be obtained directly from its project website: <a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>.</p>
-<p>RStudio is not required for anything described in this guide, it simply provides multiple panes, menus, and buttons to make some aspects of R more accessible. However, for simplicity, the guide assumes RStudio is installed, and that if you choose to either use R on its own or with a different IDE, that you are also capable of translating the operations to your particular setup.</p>
+<p>RStudio is not required for anything described in this guide, it simply provides multiple panes, menus, and buttons to make some aspects of R more accessible. However, for simplicity, the guide assumes RStudio is installed, and that if you choose to either use R on its own or with a different IDE, that you are also capable of translating the described operations to your particular setup.</p>
 </div>
 <div id="objects-classes-and-functions" class="section level2">
 <h2><span class="header-section-number">2.3</span> Objects, Classes, and Functions</h2>
 <p>Objects are the fundamental elements of the R programming language. Within R, an object is simply a data structure with some attributes. Therefore, essentially everything that you work with during an R session will be an object of some kind.</p>
 <p>Most objects have a class attribute that provides some definition regarding the type of data it contains. Classes include things like ‘character’, ‘numeric’, ‘logical’, ‘data.frame’ and ‘function’.</p>
-<p>Functions are the principal tools used in R. Functions are objects that can take arguments as input, and return a new object as output. Some are quite simple (e.g. <code>mean</code> returns the mean value of a numeric object), whereas others are much more complex (e.g. those used to perform ordinations). Many different functions are available within a base installation of R; however, as a user becomes familiar with R, they may write some new functions, these can then be shared and distributed through packages.</p>
+<p>Functions are the principal tools used in R. Functions are objects that can take arguments as input, and return a new object as output. Some are quite simple (e.g. <code>mean</code> returns the mean value of a numeric object), whereas others are much more complex (e.g. those used to perform ordinations). Many different functions are available within a base installation of R; however, as you become familiar with R, it becomes possible to write functions of your own, that can be shared via packages.</p>
 </div>
 <div id="packages" class="section level2">
 <h2><span class="header-section-number">2.4</span> Packages</h2>
-<p>All R functions and datasets are stored in <em>packages</em>, including everything contained within a base install of R. However, this base functionality can be extended through external packages that contain additional functions (along with their documentation). It may be helpful to view this relationship as packages are the ‘apps’ available for the R ‘operating system’. The main source for external packages is the <a href="https://cran.r-project.org/web/packages/">Comprehensive R Archive Network (CRAN) repository</a> (the ‘app store’ in the OS analogy).</p>
+<p>All R functions and datasets are stored in packages, including everything contained within a base install of R. However, this base functionality can be extended through external packages that contain additional functions (along with relevant documentation). It may be helpful to view this relationship as packages are the ‘apps’ available for the R ‘operating system’. The main source for external packages is the <a href="https://cran.r-project.org/web/packages/">Comprehensive R Archive Network (CRAN) repository</a> (the ‘app store’ in the OS analogy).</p>
 <p>It is also possible to install external packages from a local archive file (e.g. .zip or .tar.gz), and this is how the <code>jezioro</code> package (that contains several functions and datasets created at PEARL) is currently distributed. The latest version of <code>jezioro</code> is always available on the <a href="http://post.queensu.ca/~pearl/Methods.htm">PEARL website</a>.</p>
 <p>R is able to access the CRAN repository directly, and external packages are typically installed either through the console, or using an IDE such as RStudio.</p>
 <div id="installing-a-package-using-the-console" class="section level3">
@@ -628,7 +628,7 @@ rioja::crossval(vwho.model, cv.method=&quot;loo&quot;, verbose=FALSE, ngroups=10
 <p>Confident that your model is the same as the one described in the manuscripts, it can then be applied down-core to midge sedimentary assemblage data to reconstruct VWHO concentrations.</p>
 </div>
 <div id="merging-data-sets" class="section level2">
-<h2><span class="header-section-number">4.10</span> Merging data sets</h2>
+<h2><span class="header-section-number">4.10</span> Merging Data Sets</h2>
 <p>Data sets can be merged on common columns using the <code>join</code> function provided by the <code>analogue</code> package.</p>
 <p>This can be useful when comparing downcore data sets with a calibration set, by creating a merged data set adding rows/columns (populated by zeroes) as necessary for those taxa absent from either of the original datasets.</p>
 <pre><code>library(analogue)
@@ -640,7 +640,10 @@ join(calSet, testSet, type=&quot;outer&quot;, split=FALSE)</code></pre>
 </div>
 <div id="analog-matching" class="section level2">
 <h2><span class="header-section-number">4.11</span> Analog Matching</h2>
-<p>When comparing fossil data with a calibration set (i.e. when using a transfer function), identifying whether there are close modern analogs present in the calibration set can be done using the <code>analog</code> function provided by the <code>analogue</code> package.</p>
+<p>Identifying whether a fossil data set has any close modern analogs within a calibration set (i.e. evaluating a transfer function) can be done using the <code>analog</code> function provided by the <code>analogue</code> package.</p>
+<p>The <code>analogue</code> package also contains a vignette with a detailed analog matching example that follows the approach described in Flower et al. 1997<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> and Simpson et al. 2005<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>.</p>
+<pre><code>library(analogue)
+vignette(&quot;analogue_methods&quot;)</code></pre>
 </div>
 <div id="multivariate-regression-trees" class="section level2">
 <h2><span class="header-section-number">4.12</span> Multivariate Regression Trees</h2>
@@ -775,12 +778,17 @@ render(&quot;labGuide.rmd&quot;)</code></pre>
 </ul>
 </div>
 </div>
+<div id="references" class="section level1">
+<h1><span class="header-section-number">7</span> References</h1>
+</div>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p>Hill MO (1973) Diversity and evenness: a unifying notation and its consequences. Ecology 54: 427-432<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>Quinlan R, Smol JP (2001) Chironomid-based inference models for estimating end-of-summer hypolimnetic oxygen from south-central Ontario shield lakes. Freshwater Biology 46: 1529-1551<a href="#fnref2">↩</a></p></li>
 <li id="fn3"><p>Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inferring past hypolimnetic oxygen. Journal of Paleolimnology 44: 43-50<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>Flower RJ, Juggins S and Battarbee RW (1997) Matching diatom assemblages in lake sediment cores and modern surface sediment samples: the implications for lake conservation and restoration with special reference to acidified systems. Hydrobiologia 344: 27–40<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>Simpson GL, Shilland EM, Winterbottom JM and Keay J (2005) Defining reference conditions for acidified waters using a modern analogue approach. Environmental Pollution 137: 119–133<a href="#fnref5">↩</a></p></li>
 </ol>
 </div>
 

@@ -27,12 +27,12 @@ library(rmarkdown)
 ```
 
 # Introduction
-Despite countless blog posts, textbooks, and online courses on R already littering the internet, this is an attempt at an overview of how R is typically used in the paleolimnological analyses performed at [PEARL](http://post.queensu.ca/~pearl/). 
+Despite the countless blog posts, textbooks, and online courses focused on R that litter the internet, this document attempts to provide an overview of how R is typically used in paleolimnological analyses at [PEARL](http://post.queensu.ca/~pearl/). 
 
-The purpose of the guide is to aid both new and experienced users refine the many inevitable internet searches prefaced with [*"r help ..."*](
-https://www.google.ca/search?q=r+help&oq=r+help&aqs=chrome..69i57.1854j0j8&sourceid=chrome&ie=UTF-8).
+The purpose of the guide is to aid both new and experienced users refine their many inevitable internet searches prefaced with [*"r help ..."*](
+https://www.google.ca/search?q=r+help&oq=r+help&aqs=chrome..69i57.1854j0j8&sourceid=chrome&ie=UTF-8); as even with some familiarity with a given statistical technique, it may be unclear how to perform it using R.
 
-Although the guide begins with basic concepts and usage of R, the majority of its content is focused on specific packages and functions commonly used by members of PEARL. The guide was created using [R Markdown](http://rmarkdown.rstudio.com/), specifically to allow easy updates and its gradual evolution over time. Therefore, please share any suggestions you may have that can be incorporated and improve future versions.
+The guide begins with some basic information for users new to R; however, the majority of content is focused on common analyses used in paleolimnological studies and the specific packages and functions that can facilitate them. The guide was created using [R Markdown](http://rmarkdown.rstudio.com/), specifically to allow easy updates and a gradual evolution over time. Therefore, please share any suggestions you may have to improve future versions.
 
 # Fundamental Concepts
 ## What is R?
@@ -41,17 +41,17 @@ Although the guide begins with basic concepts and usage of R, the majority of it
 ## R vs. RStudio
 As R is a command line program, many people choose to control it through a graphical interface. There are several different graphical interfaces or integrated development environments (IDE) to choose from, but the one most commonly used at PEARL is [RStudio](https://en.wikipedia.org/wiki/RStudio). RStudio is an open-source IDE for R, freely available for Linux, macOS, and Windows, and its current version can be obtained directly from its project website: https://www.rstudio.com/. 
 
-RStudio is not required for anything described in this guide, it simply provides multiple panes, menus, and buttons to make some aspects of R more accessible. However, for simplicity, the guide assumes RStudio is installed, and that if you choose to either use R on its own or with a different IDE, that you are also capable of translating the operations to your particular setup.
+RStudio is not required for anything described in this guide, it simply provides multiple panes, menus, and buttons to make some aspects of R more accessible. However, for simplicity, the guide assumes RStudio is installed, and that if you choose to either use R on its own or with a different IDE, that you are also capable of translating the described operations to your particular setup.
 
 ## Objects, Classes, and Functions
 Objects are the fundamental elements of the R programming language. Within R, an object is simply a data structure with some attributes. Therefore, essentially everything that you work with during an R session will be an object of some kind.
 
 Most objects have a class attribute that provides some definition regarding the type of data it contains. Classes include things like 'character', 'numeric', 'logical', 'data.frame' and 'function'.
 
-Functions are the principal tools used in R. Functions are objects that can take arguments as input, and return a new object as output. Some are quite simple (e.g. `mean` returns the mean value of a numeric object), whereas others are much more complex (e.g. those used to perform ordinations). Many different functions are available within a base installation of R; however, as a user becomes familiar with R, they may write some new functions, these can then be shared and distributed through packages.
+Functions are the principal tools used in R. Functions are objects that can take arguments as input, and return a new object as output. Some are quite simple (e.g. `mean` returns the mean value of a numeric object), whereas others are much more complex (e.g. those used to perform ordinations). Many different functions are available within a base installation of R; however, as you become familiar with R, it becomes possible to write functions of your own, that can be shared via packages.
 
 ## Packages
-All  R  functions  and  datasets  are  stored  in *packages*, including everything contained within a base install of R. However, this base functionality can be extended through external packages that contain additional functions (along with their documentation). It may be helpful to view this relationship as packages are the 'apps' available for the R 'operating system'. The main source for external packages is the [Comprehensive R Archive Network (CRAN) repository](https://cran.r-project.org/web/packages/) (the 'app store' in the OS analogy).
+All  R  functions  and  datasets  are  stored  in packages, including everything contained within a base install of R. However, this base functionality can be extended through external packages that contain additional functions (along with relevant documentation). It may be helpful to view this relationship as packages are the 'apps' available for the R 'operating system'. The main source for external packages is the [Comprehensive R Archive Network (CRAN) repository](https://cran.r-project.org/web/packages/) (the 'app store' in the OS analogy).
 
 It is also possible to install external packages from a local archive file (e.g. .zip or .tar.gz), and this is how the `jezioro` package (that contains several functions and datasets created at PEARL) is currently distributed. The latest version of `jezioro` is always available on the [PEARL website](http://post.queensu.ca/~pearl/Methods.htm). 
 
@@ -461,7 +461,7 @@ rioja::crossval(vwho.model, cv.method="loo", verbose=FALSE, ngroups=10, nboot=10
 ```
 Confident that your model is the same as the one described in the manuscripts, it can then be applied down-core to midge sedimentary assemblage data to reconstruct VWHO concentrations.
 
-## Merging data sets
+## Merging Data Sets
 Data sets can be merged on common columns using the `join` function provided by the `analogue` package.
 
 This can be useful when comparing downcore data sets with a calibration set, by creating a merged data set adding rows/columns (populated by zeroes) as necessary for those taxa absent from either of the original datasets.
@@ -476,7 +476,14 @@ join(calSet, testSet, type="outer", split=FALSE)
 ```
 
 ## Analog Matching
-When comparing fossil data with a calibration set (i.e. when using a transfer function), identifying whether there are close modern analogs present in the calibration set can be done using the `analog` function provided by the `analogue` package.
+Identifying whether a fossil data set has any close modern analogs within a calibration set (i.e. evaluating a transfer function) can be done using the `analog` function provided by the `analogue` package.
+
+The `analogue` package also contains a vignette with a detailed analog matching example that follows the approach described in Flower et al. 1997^[Flower RJ, Juggins S and Battarbee RW (1997) Matching diatom assemblages in lake sediment cores and modern surface sediment samples: the implications for lake conservation and restoration with special reference to acidified systems. Hydrobiologia 344: 27–40] and Simpson et al. 2005^[Simpson GL, Shilland EM, Winterbottom JM and Keay J (2005) Defining reference conditions for acidified waters using a modern analogue approach. Environmental Pollution 137: 119–133].
+
+```
+library(analogue)
+vignette("analogue_methods")
+```
 
 ## Multivariate Regression Trees
 Regression trees can be constructed using the `rpart` package.
@@ -617,3 +624,5 @@ render("labGuide.rmd")
 - [Gillespie C, Lovelace R: Efficient R Programming](https://bookdown.org/csgillespie/efficientR/)
 - [Grolemund G, Wickham H: R for Data Science](http://r4ds.had.co.nz/)
 - [Wilkinson L: The Grammar of Graphics](https://www.springer.com/us/book/9780387245447)
+
+# References
