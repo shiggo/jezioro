@@ -421,11 +421,55 @@ Rarefaction can be done using the `rarefy` function provided by the `vegan` pack
 ```
 
 ## Ordination
-The tools necessary for performing ordinations are provided by the `vegan` package.
+Tools to perform ordinations are provided by the `vegan` package.
 
-A DCA can be performed using the function `decorana`
-Somewhat confusingly, both PCAs and RDAs are performed using the function `rda` (If only one input matrix is provided it will run a PCA, if two are provided it will run an RDA)
-Biplots can be produced from an rda object by the function `biplot`
+A detrended correspondance analysis (DCA) can be performed using the function `decorana`. For example, to run a DCA on a matrix called "speciesData" (arranged with species as columns and samples as rows).
+
+```
+library(vegan)
+outputDCA <- decorana(speciesData)
+summary(outputDCA)
+plot(outputDCA)
+```
+
+A principal component analysis (PCA) can be performed using the function `rda` (Note that the "scale" argument can be used to scale values to unit variance).
+
+```
+outputPCA <- rda(speciesData, scale=TRUE)
+summary(outputPCA, axes=4)
+```
+
+The `biplot` function can be use to generate a PCA biplot with species scores indicated by biplot arrows (Note that the scaling argument can be used to scale either site(1), species (2),  or both by eigenvalues. See `?biplot.rda` for more details.
+
+```
+biplot(outputPCA, scaling=2) 
+```
+A redundancy analysis (RDA) is performed by the `rda` function when two matrices are provided as input, one containing the species data and the second containing the environmental data.
+```
+outputRDA <- rda(speciesData ~  ., envData)
+outputRDA
+summary(outputRDA, scaling=0, axes=4)
+plot(outputRDA, scaling=2)
+```
+To manually perform forward selection on an RDA model use `add1.cca`
+```
+testRDA <- rda(speciesData ~ 1, envData) # defines starting model
+add1(testRDA, scope=formula(outputRDA), test="perm", pstep=500) # examine F-ratios
+testRDA <- update (testRDA, . ~ . + pH) # update model
+add1(testRDA, scope=formula(outputRDA), test="perm", pstep=500) # examine F-ratio
+testRDA <- update (testRDA, . ~ . + Ca) # updates model
+add1(testRDA, scope=formula(outputRDA), test="perm", pstep=500) # continue until no more variables can improve model
+
+anova (testRDA, by="terms", step=500) # tests terms in final model
+testRDA
+summary(testRDA, scaling=0, axes=4)
+plot(testRDA, scaling=2) 
+```
+Finally, examine the variable inflation factors in both the full model and reduced models.
+```
+vif.cca(outputRDA)
+vif.cca(testRDA)
+```
 
 ## ANOSIM and SIMPER
 An ANOSIM can be performed using the `anosim` function provided by the `vegan` package.

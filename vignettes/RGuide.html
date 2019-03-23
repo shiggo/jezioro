@@ -221,7 +221,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">An Introduction to using R at PEARL</h1>
 <h4 class="author"><em>Adam Jeziorski</em></h4>
-<h4 class="date"><em>Last Updated: 2019-02-27</em></h4>
+<h4 class="date"><em>Last Updated: 2019-03-22</em></h4>
 
 </div>
 
@@ -578,8 +578,37 @@ corrplot(M, method = &quot;number&quot;, col = &quot;black&quot;, cl.pos = &quot
 </div>
 <div id="ordination" class="section level2">
 <h2><span class="header-section-number">4.7</span> Ordination</h2>
-<p>The tools necessary for performing ordinations are provided by the <code>vegan</code> package.</p>
-<p>A DCA can be performed using the function <code>decorana</code> Somewhat confusingly, both PCAs and RDAs are performed using the function <code>rda</code> (If only one input matrix is provided it will run a PCA, if two are provided it will run an RDA) Biplots can be produced from an rda object by the function <code>biplot</code></p>
+<p>Tools to perform ordinations are provided by the <code>vegan</code> package.</p>
+<p>A detrended correspondance analysis (DCA) can be performed using the function <code>decorana</code>. For example, to run a DCA on a matrix called “speciesData” (arranged with species as columns and samples as rows).</p>
+<pre><code>library(vegan)
+outputDCA &lt;- decorana(speciesData)
+summary(outputDCA)
+plot(outputDCA)</code></pre>
+<p>A principal component analysis (PCA) can be performed using the function <code>rda</code> (Note that the “scale” argument can be used to scale values to unit variance).</p>
+<pre><code>outputPCA &lt;- rda(speciesData, scale=TRUE)
+summary(outputPCA, axes=4)</code></pre>
+<p>The <code>biplot</code> function can be use to generate a PCA biplot with species scores indicated by biplot arrows (Note that the scaling argument can be used to scale either site(1), species (2), or both by eigenvalues. See <code>?biplot.rda</code> for more details.</p>
+<pre><code>biplot(outputPCA, scaling=2) </code></pre>
+<p>A redundancy analysis (RDA) is performed by the <code>rda</code> function when two matrices are provided as input, one containing the species data and the second containing the environmental data.</p>
+<pre><code>outputRDA &lt;- rda(speciesData ~  ., envData)
+outputRDA
+summary(outputRDA, scaling=0, axes=4)
+plot(outputRDA, scaling=2)</code></pre>
+<p>To manually perform forward selection on an RDA model use <code>add1.cca</code></p>
+<pre><code>testRDA &lt;- rda(speciesData ~ 1, envData) # defines starting model
+add1(testRDA, scope=formula(outputRDA), test=&quot;perm&quot;, pstep=500) # examine F-ratios
+testRDA &lt;- update (testRDA, . ~ . + pH) # update model
+add1(testRDA, scope=formula(outputRDA), test=&quot;perm&quot;, pstep=500) # examine F-ratio
+testRDA &lt;- update (testRDA, . ~ . + Ca) # updates model
+add1(testRDA, scope=formula(outputRDA), test=&quot;perm&quot;, pstep=500) # continue until no more variables can improve model
+
+anova (testRDA, by=&quot;terms&quot;, step=500) # tests terms in final model
+testRDA
+summary(testRDA, scaling=0, axes=4)
+plot(testRDA, scaling=2) </code></pre>
+<p>Finally, examine the variable inflation factors in both the full model and reduced models.</p>
+<pre><code>vif.cca(outputRDA)
+vif.cca(testRDA)</code></pre>
 </div>
 <div id="anosim-and-simper" class="section level2">
 <h2><span class="header-section-number">4.8</span> ANOSIM and SIMPER</h2>
