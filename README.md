@@ -5,7 +5,7 @@ The jezioro R package is a collection of functions and datasets intended for use
 The package includes the following functions (along with example data to illustrate their use):
 * *cladCount*: determine the number of individuals (and their relative abundances) represented in raw cladoceran subfossil data
 * *interpDates*: interpolate dates for the undated intervals of a dated sediment core
-* *vrsChla*: infer chlorophyll *a* concentration in lake sediment from visible reflectance measurments
+* *vrsChla*: infer chlorophyll *a* concentration in lake sediment from visible reflectance measurements
 * the 'binford' functions collectively calculate <sup>210</sup>Pb dates for a sediment core using the methods described in Binford 1990, Schelske 1994, and Appleby 2001
   * *binfordRho*: determine water content and dry sediment density for freeze-dried intervals of a sediment core
   * *binfordActivity*: calculate <sup>210</sup>Pb, <sup>137</sup>Cs, and <sup>214</sup>Bi activities corrected for the efficiency of the gamma counter

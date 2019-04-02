@@ -26,15 +26,21 @@ The `jezioro` package is a collection of functions and datasets intended for use
 
 The package includes the following functions (along with example data to illustrate their use):  
 
-- `cladCount` - determines the number of individuals (and their relative abundances) represented in raw cladoceran subfossil data
-- `interpDates` - interpolates dates for the undated intervals of a dated sediment core
-- `vrsChla` - infers lake sediment chlorophyll *a* concentrations from measurements of visible reflectance
-- the 'binford' functions (`binfordRho`, `binfordActivity`, `binfordDates`) collectively calculate ^210^Pb dates for a sediment core using the methods described in Binford 1990, Schelske 1994, and Appleby 2001.
+- `cladCount`: determine the number of individuals (and their relative abundances) represented in raw cladoceran subfossil data
+- `interpDates`: interpolate dates for the undated intervals of a dated sediment core
+- `vrsChla`: infer lake sediment chlorophyll *a* concentrations from visible reflectance measurements
+- the 'binford' functions collectively calculate ^210^Pb dates for a sediment core using the methods described in Binford 1990, Schelske 1994, and Appleby 2001
+    - `binfordRho`: determine water content and dry sediment density for freeze-dried intervals of a sediment core
+    - `binfordActivity`: calculate ^210^Pb, ^137^Cs, and ^214^Bi activities corrected for the efficiency of the gamma counter
+    - `binfordDates`: use the unsupported fraction of ^210^Pb activity in sediment samples to calculate sediment ages via the Constant Rate of Supply (CRS) model
+- the 'wiltse' functions test for homogeneity and coherence within a dataset, they are slightly modified versions of the 'brien' and 'decompose' functions described in Brendan Wiltse's 2014 PhD thesis
+    - `wiltseBrien`: perform the Brien test (Brien et al. 1984) on variables contained within a data frame
+    - `wiltseDecompose`: build upon the Brien test by identifying homogenous and coherent subsets within the correlation matrix
 
 The package also contains some commonly used calibration sets to facilitate the construction of transfer functions for application to individual sediment cores:
 
-- `tpHall1996` is the diatom-inferred TP calibration set of 54 south-central Ontario lakes described in Hall and Smol (1996)
-- `vwhoQuinlan2010` is the dipteran-inferred VWHO calibration set of 54 south-central Ontario lakes described in Quinlan and Smol (2001; 2010)
+- `tpHall1996`: diatom-inferred TP calibration set of 54 south-central Ontario lakes described in Hall and Smol (1996)
+- `vwhoQuinlan2010`: dipteran-inferred VWHO calibration set of 54 south-central Ontario lakes described in Quinlan and Smol (2001; 2010)
 <br>
 <br>
 
@@ -181,70 +187,6 @@ Visible spectroscopy reliably tracks trends in paleo production.
 Journal of Paleolimnology 56: 253-265
 
 Wolfe AP, Vinebrooke RD, Michelutti N, Rivard B, Das B (2006) Experimental calibration of lake-sediment spectral reflectance to chlorophyll a concentrations: methodology and paleolimnological validation. Journal of Paleolimnology 36: 91-100
-<br>
-<br>
-
-## wiltseBrien/Decompose
-The Wiltse functions `wiltseBrien` and `wiltseDecompose` test for homogeneity and coherence within a dataset. They are slightly modified (so that they no longer write to the global environment) versions of the 'brien' and 'decompose' functions described in Brendan Wiltse’s 2014 PhD thesis.
-
-### wiltseBrien
-`wiltseBrien` performs the Brien test (Brien et al. 1984) on variables contained within a data frame, calculating the grand mean, main effects interactions and equal correlation for a correlation matrix of the z-scored data and returns the degrees of freedom, chi-squared value and p-value for each test.
-
-The input data should bea data frame with the variables to be tested arranged in columns with appropriate column names. An example data set is provided by `wiltseInput' that contains dates in column 1, and the rest of the columns are PCA axis-1 scores for the dominant diatom taxa in 8 lakes in the ELA. A plot of the data shows the trends through time.
-
-``` {r}
-data(wiltseInput)
-matplot(wiltseInput$Date, wiltseInput[,-match("Date", colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score")
-```
-
-
-An initial run of the Brien test (on just the PCA Axis 1 scores) with `wiltseBrien`:
-
-```{r}
-wiltseBrien(wiltseInput[,-match("Date", colnames(wiltseInput))])
-```
-
-### wiltseDecompose
-`wiltseDecompose` builds upon the Brien's test by identifying homogenous and coherent subsets within the correlation matrix.
-
-An initial test for homogeneity and coherence within the correlation matrix is performed. If heterogeneity is detected (a homogenous matrix fails to reject the null-hypothesis for the tests of main effects, interactions and equal correlations), then the lake with lowest mean correlation within the matrix is deleted and the test is rerun on the reduced matrix. This process is repeated until the remaining variables are both homogenous and synchronous (i.e. fail to reject the null-hypothesis for the grand mean).
-
-To run `wiltseDecompose` on the `wiltseInput` data:
-```{r}
-wiltseDecompose(wiltseInput[,-match("Date", colnames(wiltseInput))], print.detail=T)
-```
-
-Through the decomposition process, first Lake 224 was removed, then Lake 468, then Lake 129 and finally Lake 199:
-
-```{r, echo=FALSE}
-par(mfrow=c(2,2),mar=c(5,5,1,2), oma=c(0.1,0.1,0.1,0.1))
-matplot(wiltseInput$Date, wiltseInput[,-match(c("Date", "ELA224"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score", main="Lake 224 Removed")
-
-matplot(wiltseInput$Date, wiltseInput[,-match(c("Date", "ELA224", "ELA468"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score", main="Lake 468 Removed")
-
-matplot(wiltseInput$Date, wiltseInput[,-match(c("Date", "ELA224", "ELA468", "ELA129"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score", main="Lake 129 Removed")
-
-matplot(wiltseInput$Date, wiltseInput[,-match(c("Date", "ELA224", "ELA468", "ELA129", "ELA99"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score", main="Lake 99 Removed")
-```
-
-To test for synchrony among just the removed lakes (224, 468, 129 and 99):
-```{r}
-wiltseBrien(wiltseInput[,match(c("ELA224", "ELA468", "ELA129", "ELA99"), colnames(wiltseInput))])
-matplot(wiltseInput$Date, wiltseInput[,match(c("ELA224", "ELA468", "ELA129", "ELA99"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score")
-```
-
-Even though the matrix was determined to be both synchronous and homogenous, Lake 99 looks like it might be doing something different. Therefore to run the test without Lake 99:
-```{r}
-wiltseBrien(wiltseInput[,match(c("ELA224", "ELA468", "ELA129"), colnames(wiltseInput))])
-matplot(wiltseInput$Date, wiltseInput[,match(c("ELA224", "ELA468", "ELA129"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score")
-```
-
-#### References
-Brien CJ, Venables WN, James AT, Mayo O (1984) An analysis of correlation matrices: equal correlations. Biometrika 71: 545-54
-
-Rusak JA, Yan ND, Somers KM, McQueen DJ (1999) The temporal coherence of zooplankton population abundances in neighboring north-temperate lakes. The American Naturalist 153: 46–58
-
-Wiltse B (2014) The response of Discostella species to climate change at the Experimental Lakes Area, Canada. PhD Thesis Queen's University
 <br>
 <br>
 
@@ -444,6 +386,76 @@ interpDates(dates, 0.5)
 
 #### References
 Binford MW (1990) Calculation and uncertainty analysis of 210PB dates for PIRLA project lake sediment cores. Journal of Paleolimnology 3: 253-267
+<br>
+<br>
+
+## wiltseBrien/Decompose
+The Wiltse functions `wiltseBrien` and `wiltseDecompose` test for homogeneity and coherence within a dataset. They are slightly modified (so that they no longer write to the global environment) versions of the 'brien' and 'decompose' functions described in Brendan Wiltse’s 2014 PhD thesis.
+<br>
+<br>
+
+### wiltseBrien
+`wiltseBrien` performs the Brien test (Brien et al. 1984) on variables contained within a data frame, calculating the grand mean, main effects interactions and equal correlation for a correlation matrix of the z-scored data and returns the degrees of freedom, chi-squared value and p-value for each test.
+
+The input data should bea data frame with the variables to be tested arranged in columns with appropriate column names. An example data set is provided by `wiltseInput' that contains dates in column 1, and the rest of the columns are PCA axis-1 scores for the dominant diatom taxa in 8 lakes in the ELA. A plot of the data shows the trends through time.
+
+``` {r}
+data(wiltseInput)
+matplot(wiltseInput$Date, wiltseInput[,-match("Date", colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score")
+```
+
+
+An initial run of the Brien test (on just the PCA Axis 1 scores) with `wiltseBrien`:
+
+```{r}
+wiltseBrien(wiltseInput[,-match("Date", colnames(wiltseInput))])
+```
+<br>
+<br>
+
+### wiltseDecompose
+`wiltseDecompose` builds upon the Brien's test by identifying homogenous and coherent subsets within the correlation matrix.
+
+An initial test for homogeneity and coherence within the correlation matrix is performed. If heterogeneity is detected (a homogenous matrix fails to reject the null-hypothesis for the tests of main effects, interactions and equal correlations), then the lake with lowest mean correlation within the matrix is deleted and the test is rerun on the reduced matrix. This process is repeated until the remaining variables are both homogenous and synchronous (i.e. fail to reject the null-hypothesis for the grand mean).
+
+To run `wiltseDecompose` on the `wiltseInput` data:
+```{r}
+wiltseDecompose(wiltseInput[,-match("Date", colnames(wiltseInput))], print.detail=T)
+```
+
+Through the decomposition process, first Lake 224 was removed, then Lake 468, then Lake 129 and finally Lake 199:
+
+```{r, echo=FALSE}
+par(mfrow=c(2,2),mar=c(5,5,1,2), oma=c(0.1,0.1,0.1,0.1))
+matplot(wiltseInput$Date, wiltseInput[,-match(c("Date", "ELA224"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score", main="Lake 224 Removed")
+
+matplot(wiltseInput$Date, wiltseInput[,-match(c("Date", "ELA224", "ELA468"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score", main="Lake 468 Removed")
+
+matplot(wiltseInput$Date, wiltseInput[,-match(c("Date", "ELA224", "ELA468", "ELA129"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score", main="Lake 129 Removed")
+
+matplot(wiltseInput$Date, wiltseInput[,-match(c("Date", "ELA224", "ELA468", "ELA129", "ELA99"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score", main="Lake 99 Removed")
+```
+
+To test for synchrony among just the removed lakes (224, 468, 129 and 99):
+```{r}
+wiltseBrien(wiltseInput[,match(c("ELA224", "ELA468", "ELA129", "ELA99"), colnames(wiltseInput))])
+matplot(wiltseInput$Date, wiltseInput[,match(c("ELA224", "ELA468", "ELA129", "ELA99"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score")
+```
+
+Even though the matrix was determined to be both synchronous and homogenous, Lake 99 looks like it might be doing something different. Therefore to run the test without Lake 99:
+```{r}
+wiltseBrien(wiltseInput[,match(c("ELA224", "ELA468", "ELA129"), colnames(wiltseInput))])
+matplot(wiltseInput$Date, wiltseInput[,match(c("ELA224", "ELA468", "ELA129"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score")
+```
+
+#### References
+Brien CJ, Venables WN, James AT, Mayo O (1984) An analysis of correlation matrices: equal correlations. Biometrika 71: 545-54
+
+Rusak JA, Yan ND, Somers KM, McQueen DJ (1999) The temporal coherence of zooplankton population abundances in neighboring north-temperate lakes. The American Naturalist 153: 46–58
+
+Wiltse B (2014) The response of Discostella species to climate change at the Experimental Lakes Area, Canada. PhD Thesis Queen's University
+<br>
+<br>
 
 # Datasets
 
@@ -464,6 +476,8 @@ The 425x57 data frame is composed of the following:
 
 #### References
  Hall RI, Smol JP (1996) Paleolimnological assessment of long-term water-quality changes in south-central Ontario lakes affected by cottage development and acidification. Canadian Journal of Fisheries and Aquatic Sciences 53: 1-17
+<br>
+<br>
 
 ## vwhoQuinlan2010
 `vwhoQuinlan2010` contains the the volume-weighted hypolimnetic oxygen (VWHO) concentrations and sedimentary midge (chironomid and chaoborid) assemblage data for the 54 lake south-central Ontario calibration set from Quinlan and Smol (2001, 2010). The purpose of this dataset is to facilitate reproducing the described midge-inferred VWHO model for application to down-core midge sedimentary assemblage data.
@@ -483,6 +497,8 @@ Information on each lake (i.e. latitude, longitude, etc.) and the 44 taxa includ
 Quinlan R, Smol JP (2001) Chironomid-based inference models for estimating end-of-summer hypolimnetic oxygen from south-central Ontario shield lakes. Freshwater Biology 46: 1529-1551
 
 Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inferring past hypolimnetic oxygen. Journal of Paleolimnology 44: 43-50
+<br>
+<br>
 
 # Version History
 ## v0.18 (Dec 2018)
