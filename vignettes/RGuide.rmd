@@ -519,6 +519,9 @@ testSet <- data.frame(taxa1=c(0.25, 0.25, 0.50),taxa4=c(0.75, 0.10, 0.15), row.n
 join(calSet, testSet, type="outer", split=FALSE)
 ```
 
+The `aggregate` funciton provided in a base installation of R can also be useful when harmonizing disparate data sets.
+
+
 ## Analog Matching
 Identifying whether a fossil data set has any close modern analogs within a calibration set (i.e. evaluating a transfer function) can be done using the `analog` function provided by the `analogue` package.
 
@@ -535,6 +538,12 @@ Regression trees can be constructed using the `rpart` package.
 
 ## Breakpoint Analysis
 Davies Test
+
+
+## Generalized Additive Models (GAMs)
+GAMs can be constructed using the `mgcv` package.
+
+Simpson (In Review)^[Simpson GL (In Review) Modelling palaeoecological time series using generalized additive models.] (https://www.biorxiv.org/content/10.1101/322248v1) provides a detailed introduction to use of GAMs along with the annotated R code (in the supplementary info) to produce the described analyses described.
 
 
 # Advanced Usage
