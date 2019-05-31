@@ -733,6 +733,7 @@ calSet &lt;- data.frame(taxa1=c(0.25, 0.75, 0.25),taxa2=c(0.20, 0.05, 0.35), tax
 testSet &lt;- data.frame(taxa1=c(0.25, 0.25, 0.50),taxa4=c(0.75, 0.10, 0.15), row.names=c(&quot;test1&quot;, &quot;test2&quot;, &quot;test3&quot;))
 
 join(calSet, testSet, type=&quot;outer&quot;, split=FALSE)</code></pre>
+<p>The <code>aggregate</code> funciton provided in a base installation of R can also be useful when harmonizing disparate data sets.</p>
 </div>
 <div id="analog-matching" class="section level2">
 <h2><span class="header-section-number">4.11</span> Analog Matching</h2>
@@ -749,10 +750,10 @@ vignette(&quot;analogue_methods&quot;)</code></pre>
 <h2><span class="header-section-number">4.13</span> Breakpoint Analysis</h2>
 <p>Davies Test</p>
 </div>
-<div id="generalized-additive-models-gams" class="section level2">
-<h2><span class="header-section-number">4.14</span> Generalized Additive Models (GAMs)</h2>
-<p>GAMs can be constructed using the <code>mgcv</code> package.</p>
-<p>Simpson (In Review)<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> (<a href="https://www.biorxiv.org/content/10.1101/322248v1" class="uri">https://www.biorxiv.org/content/10.1101/322248v1</a>) provides a detailed introduction to use of GAMs along with the annotated R code (in the supplementary info) to produce the described analyses described.</p>
+<div id="gams" class="section level2">
+<h2><span class="header-section-number">4.14</span> GAMs</h2>
+<p>Generalized Additive Models (or GAMs) can be constructed using the <code>mgcv</code> package.</p>
+<p>Simpson (In Review)<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>(<a href="https://www.biorxiv.org/content/10.1101/322248v1" class="uri">https://www.biorxiv.org/content/10.1101/322248v1</a>) provides a detailed introduction to the use of GAMs and their construction using R (the supplementary info also contains the annotated R code used to perform the described analyses).</p>
 </div>
 </div>
 <div id="advanced-usage" class="section level1">

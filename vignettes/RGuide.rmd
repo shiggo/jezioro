@@ -540,10 +540,10 @@ Regression trees can be constructed using the `rpart` package.
 Davies Test
 
 
-## Generalized Additive Models (GAMs)
-GAMs can be constructed using the `mgcv` package.
+## GAMs
+Generalized Additive Models (or GAMs) can be constructed using the `mgcv` package.
 
-Simpson (In Review)^[Simpson GL (In Review) Modelling palaeoecological time series using generalized additive models.] (https://www.biorxiv.org/content/10.1101/322248v1) provides a detailed introduction to use of GAMs along with the annotated R code (in the supplementary info) to produce the described analyses described.
+Simpson (In Review)^[Simpson GL (In Review) Modelling palaeoecological time series using generalized additive models.](https://www.biorxiv.org/content/10.1101/322248v1) provides a detailed introduction to the use of GAMs and their construction using R (the supplementary info also contains the annotated R code used to perform the described analyses).
 
 
 # Advanced Usage

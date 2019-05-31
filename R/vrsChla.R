@@ -82,7 +82,7 @@ main.title=expression(paste("VRS-inferred chlorophyll ", italic("a"), " profile"
 xaxis.title=expression(paste("Inferred chlorophyll ", italic("a"), " (mg"%.%"g"^{-1}, " dry mass)"))
 yaxis.title="Core depth (cm)"
 
-plot(chla.work[,52],rows, type="l",lwd=2, main=main.title, xlab=xaxis.title, ylab=yaxis.title, ylim=c(limit,0), xlim=c(0,((max(chla.work[,52])+sd(chla.work[,52]))))) 
+plot(chla.work[,52],rows, type="p", pch=21, bg="black", cex =0.75, lwd=1, main=main.title, xlab=xaxis.title, ylab=yaxis.title, ylim=c(limit,0), xlim=c(0,((max(chla.work[,52])+sd(chla.work[,52]))))) 
 # adds a line at 0.01 mg/g, indicating the limit of detection for the method
 abline(v=0.01, lwd=1.5, col="red")
 text(0.15, limit,"limit of detection \n (0.01 mg/g)", cex=0.8, col="red")
