@@ -29,7 +29,9 @@ The package also contains two guides or vignettes:
 
 
 ## Dependencies
-All dependencies are related to the various examples in the general guide vignette and include: *dplyr*, *ggplot2*, *knitr*, *magrittr*, *mapproj*, *rgdal*, *rioja*, and *rmarkdown*.
+The package requires an R version >= 2.10
+The function *dipteranVWHO* depends on *analogue*, *plyr*, and *rioja*.
+Several other dependencies are related to the various examples in the general guide vignette and include: *dplyr*, *ggplot2*, *knitr*, *magrittr*, *mapproj*, *rgdal*, and *rmarkdown*.
 
 
 ## Installation

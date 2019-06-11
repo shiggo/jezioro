@@ -13,8 +13,8 @@ The \env{jezioro} package is a collection of functions and datasets intended for
 \tabular{ll}{
 Package: \tab jezioro\cr
 Type: \tab Package\cr
-Version: \tab 0.18\cr
-Date: \tab 2018-12-01\cr
+Version: \tab 0.19\cr
+Date: \tab 2019-06-10\cr
 License: \tab GPL (>= 2)\cr
 LazyLoad: \tab no\cr
 }
@@ -23,6 +23,7 @@ LazyLoad: \tab no\cr
 
 \itemize{
          \item \env{cladCount} determines the minimum number of individuals (and their relative abundances) represented in raw cladoceran subfossil count data
+         \item \env{dipteranVWHO} harmonize appropriately formatted chironomid count data with the calibration set described in Quinlan and Smol (2001, 2010), construct the described VWHO model, infer VWHO from the chironomid sample data using the model, and perform an analog matching analysis between the sample data and the calibration set 
          \item \env{interpDates} interpolates dates for undated intervals of a dated sediment core
          \item \env{vrsChla} infers sediment chlorophyll a concentrations from measurements of visible reflectance
          \item \env{binfordRho} calculates percent water and dry sediment density for individual freeze-dried intervals from a sediment core (values are interpolated for intervals that were not freeze-dried)
@@ -39,6 +40,7 @@ NOTE:\cr
 
 \itemize{
          \item \env{cladCountInput} an example input file for \env{cladCount} (rows are subfossils, columns are samples)
+         \item \env{dipteranVWHOInput} an example input file for \env{dipteranVWHO}
          \item \env{vrsChlaInput} an example input file for \env{vrsChla} with sediment intervals as rows and spectrophotometer measurements for wavelengths 650-700 nm, measured every 2 nm
          \item \env{binfordRhoInput} an example input file for \env{binfordRho} formatted as if sediment intervals  were subsampled prior to freeze-drying (i.e. into scintillation vials)
          \item \env{binfordActivityInput} an appropriately formatted input file for \env{binfordActivity}
