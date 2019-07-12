@@ -581,7 +581,6 @@ Calculate the mean VWHO of those lakes (rows) where TANYSL <10 and MICROP >40.
 filter(vwhoQuinlan2010, MICROP>30) %>% filter(TANYSL<10) %>% summarise(mean(VWHO))
 ```
 
-
 ## Plotting with `ggplot2`
 `ggplot2` is a data visualization package that implements concepts outlined in 'The Grammar of Graphics' a book 'about grammatical rules for creating perceivable graphs'.
 
@@ -643,13 +642,132 @@ print(map)
 
 ## Composite Plots
 
-
 ## Stratigraphies
 Stratigraphies can be produced using the `strat.plot` function provided by the `rioja` package.
 
 ## Animated Plots
 https://github.com/dgrtwo/gganimate
 
+## Word Clouds
+[Word clouds](https://en.wikipedia.org/wiki/Tag_cloud) are a neat way to present and visualize text data. The following example demonstrates generating word frequency tables (along with text [stemming](https://en.wikipedia.org/wiki/Stemming) and stem completetion) necessary to produce word clouds.
+
+There are several ways to produce a word cloud using R; here functions from the packages `tm` are used to mine text data, `SnowballC` to stem text, and `wordcloud2` to generate the word clouds. If not already installed on your system, all three packages are available from CRAN, and can be installed with:
+```
+install.packages(c("wordcloud2", "tm", "SnowballC"))
+```
+
+Once the packages are installed, make them available for use by loading them:
+```
+library(wordcloud2)
+library(tm)
+library(SnowballC)
+```
+
+### Data Import
+Word clouds require words, so import your text data into the R environment:
+```
+rawText <- readLines(file=file.choose())
+```
+
+The following example uses the first three paragraphs from the introduction of Volume 1 of the DPER seres as input data.
+```
+rawText <- "Paleolimnology, the interpretation of past conditions and processes in lake basins, is a multidisciplinary science whose roots extend back nearly two centuries. Despite this long history of development, the science has seen a surge of interest and application over the past decade. Today paleolimnology assumes a pivotal role in paleoclimatic and global change investigations, many fields of environmental science, and hydrocarbon and mineral resource exploration and exploitation. Associated with this dramatic increase in researchactivity involving lake sediments, there has been an equally rapid advance in the techniques and methods used by paleolimnologists. The objective of this volume is to provide a state-of-the-art summary of the major field methods, chronological techniques, and concepts used in the study of large-scale lacustrine basin analysis. This and the other techniques volumes in this series build on the foundation provided by previous compilations of paleoenvironmental techniques, such as Kummel & Raup (1965), Bouma (1969), Carver (1971), Berglund (1986), Gray (1988), Tucker (1988), Warner (1990), and Rutter & Catto (1995), many of which continue to serve as essential handbooks. However, the development of new and different methods for studying lake sediments over the past decade, as well as advancements and modifications to old methods, have provided impetus for a new series of monographs for this rapidly expanding topic. Three additional books from this series deal with other components of paleolimnology. Volume 2 (Last & Smol, 2001) focuses on the vast array of physical, mineralogical, and geochemical parameters that can be applied to the interpretation of lake histories. Volumes 3 and 4 (Smol et al., 2001a, b) address the great range of biological techniques that have been and continue to be such an important aspect of many paleolimnological efforts. Although chapters in each of these books discuss the quantitative aspects of lake sediment interpretations, a separate volume on statistical and data handling approaches in paleolimmnology is currently in preparation (Birks et al., in preparation). Our intent with this series of volumes is to provide sufficient methodological and technical detail to allow both practitioners and newcomers to the area of paleolimnology to use them as handbooks/laboratory manuals and as primary research texts. Although we recognize that the study of pre-Quaternary lakes is a very rapidly growing component in the vast arena of paleolimnology, this volume is directed primarily towards those involved in Quaternary lacustrine deposits and Quaternary environmental change. Nonetheless, many of the techniques and approaches are applicable to other time frames. Finally, we anticipate that many of the techniques discussed in these volumes  apply  equally  well to  marine, estuarine, and other depositional environments, although we have not specifically targeted non-lacustrine settings."
+```
+### Generate the Word Frequency Table
+To produce a word cloud, a word frequency table is required (i.e. a two column table with the first column listing each word present in the input text, and the second listing the number of times it appears). This type of text mining can be done using tools provided by the `tm` package. 
+
+Some preprocessing of the input text is necessary. The `tm` package uses a data structure known as a [corpus](https://en.wikipedia.org/wiki/Text_corpus). So, first collapse the `rawText` data object into a single character string, then convert into a corpus using the `Corpus` function provided by the `tm` package. 
+
+```
+rawText <- paste(unlist(rawText, use.names=FALSE), collapse=" ")
+rawText <- Corpus(VectorSource(rawText))
+```
+
+Next, clean the text data with the corpus using `tm_map` to convert all characters to lower case, as well as remove any special characters, punctuation, [stop words](https://en.wikipedia.org/wiki/Stop_words) or extra white space.
+
+```
+cleanCorpus <- function(corpus){
+  corpus <- tm_map(corpus, content_transformer(tolower))
+  ##Replace all instances of “/”, “@” and “|” with a space:
+  replaceWithSpace <- content_transformer(function(x , pattern ) gsub(pattern, " ", x))
+  corpus <- tm_map(corpus, replaceWithSpace, "/")
+  corpus <- tm_map(corpus, replaceWithSpace, "@")
+  corpus <- tm_map(corpus, replaceWithSpace, "\\|")
+  corpus <- tm_map(corpus, removePunctuation)
+  corpus <- tm_map(corpus, removeWords, stopwords("en"))
+  corpus <- tm_map(corpus, stripWhitespace)
+  return(corpus)
+}
+cleanText <- cleanCorpus(rawText)
+```
+Note, that you may want to prevent some additional words from appearing in the word cloud, beyond those contained in the `tm` stop word list. If so, add them to the character vector `cutWords`.
+```
+cutWords <- c("can", "will", "also")
+cleanText <- tm_map(cleanText, removeWords, cutWords)
+```
+
+Now the `TermDocumentMatrix` function within the `tm` package can be used to produce a frequency table for each word present in `cleanText`:
+```
+createFreqTable <- function(corpus){
+  freqTable <- TermDocumentMatrix(corpus)
+  freqTable <- as.matrix(freqTable)
+  freqTable <- sort(rowSums(freqTable),decreasing=TRUE)
+  freqTable <- data.frame(word = names(freqTable), freq=freqTable)
+  return(freqTable)
+}
+cleanFreqTable <- createFreqTable(cleanText)
+```
+
+A quick examination of the frequency table will reveal that individual members of word families such as 'volume' and 'volumes' or 'provide' and 'provided' are tabulated separately. Thus, the frequency table could be simplified by reducing members of each word family to their [root](https://en.wikipedia.org/wiki/Root_(linguistics)) and then combining each instance. This process is known as stemming the document. 
+
+```
+head(cleanFreqTable, 40)
+```
+
+### Text Stemming
+To generate a stemmed version of `cleanText` use the `stemDocument` function provided by `tm` and then generate a new frequency table using our `createFreqTable` function from earlier:
+
+```
+stemText <- tm_map(cleanText, stemDocument)
+stemFreqTable <- createFreqTable(stemText)
+```
+
+However, it is unlikely that you would want to use the actual roots in your word cloud (i.e. the root of the 'techique' word family is 'techniqu', etc.):
+
+```
+head(stemFreqTable, 40)
+```
+
+### Stem Completion
+The next step is to complete the roots using the most frequent occurrence in the input text of the inflected/derived words. This is done using another function provided by `tm`, `stemCompletion`; however, it works upon character vectors, so both `cleanText` and `stemText` must be converted first:
+
+```
+corpus2CharVect <- function(corpus){
+  corpus <- unlist(corpus[[1]][1], use.names=FALSE)
+  corpus <- strsplit(corpus, " ")
+  corpus <- unlist(corpus, use.names=FALSE)
+  return(corpus)
+}
+
+cleanWords <- corpus2CharVect(cleanText)
+stemWords <- corpus2CharVect(stemText)
+```
+
+Complete the contents of `stemWords` using `cleanWords` as the dictionary, and convert the output to a corpus, so that the final frequency table can be created.
+```
+completeText <- stemCompletion(stemWords, cleanWords, type="prevalent")
+completeText <- Corpus(VectorSource(completeText))
+completeFreqTable <- createFreqTable(completeText)
+head(completeFreqTable, 40)
+```
+
+### Generate the Word Cloud
+The frequency table of the stemmed and completed text will be the input for the `wordcloud2` function. The visual appearance of the word cloud can be modified using specific arguments to change size/shape/colour etc. Also note, that if the most common words do not appear, it may be becasue the default sizes may be too large for the plot window, this can be fixed by reducing the value give to the size argument.
+
+```
+?wordcloud2
+wordcloud2(data=completeFreqTable, size=.5, ellipticity = 0.65, shape="circle")
+```
 
 ## R Markdown
 R Markdown is an authoring framework that allows a single file to both save and execute code, and also generate high quality formatted reports with the `rmarkdown` package.

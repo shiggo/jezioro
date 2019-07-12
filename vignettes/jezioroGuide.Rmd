@@ -21,12 +21,13 @@ vignette: >
 ```{r, echo=FALSE, results='hide', message=FALSE}
 library(jezioro)
 ```
-
+# Introduction
 The `jezioro` package is a collection of functions and datasets intended for use by members of the Paleoecological Environmental Assessment and Research Laboratory (PEARL). The package is maintained Adam Jeziorski, and contains contributions from Adam Jeziorski, Joshua Thienpont, and Andrew Labaj. If you have any suggestions for its improvement please let us know.
 
 The package includes the following functions (along with example data to illustrate their use):  
 
 - `cladCount`: determine the number of individuals (and their relative abundances) represented in raw cladoceran subfossil data
+- `dipteranVWHO`: harmonize appropriately formatted chironomid/chaoborid count data with the Quinlan and Smol (2001, 2010) calibration set, construct their VWHO inference model, infer VWHO from the sample data, and perform an analog matching analysis between the sample data and the calibration set
 - `interpDates`: interpolate dates for the undated intervals of a dated sediment core
 - `vrsChla`: infer lake sediment chlorophyll *a* concentrations from visible reflectance measurements
 - the 'binford' functions collectively calculate ^210^Pb dates for a sediment core using the methods described in Binford 1990, Schelske 1994, and Appleby 2001
@@ -98,6 +99,44 @@ cladCount(cladCountInput, percCutoff=4, sampleCutoff=2, outputType='gt')
 Korhola A, Rautio M (2001) 2. Cladocera and other branchiopod crustaceans. In: Smol JP, Birks HJB, Last WM (eds.) Tracking Environmental Change Using Lake Sediments. Volume 4: Zoological Indicators. Kluwer Academic Publishers, Dordrecht, The Netherlands, pp 4-41
 <br>
 <br>
+
+## dipteranVWHO
+`dipteranVWHO` harmonizes chironomid/chaoborid count data with the taxonomy used in the Quinlan and Smol (2001, 2010) calibration set, returns the chironomid inferred volume weighted hypolimnetic oxygen concentrations (VWHO) from the sample data using the inference model described in Quinlan and Smol (2001, 2010), and also performs an analog matching between the sample data and the calibration set.
+
+The required format of the input data is provided in an example data set `dipteranVWHOInput`
+
+The output of `dipteranVWHO` is modified by three arguments (*evaluate*, *percentileCut*, and *lowCount*):
+
+- *evaluate*  (defaults to FALSE): logical to indicate whether to display the model information
+- *percentileCut* (defaults to 5): cutoff value for flagging samples in the plots as having poor modern analogs
+- *lowCount* (defaults to 50): cutoff value to flag samples that have low counts (i.e. less than 50 individuals)
+
+The function returns a list of  four lists:
+
+- formattedData contains the sample info, the raw chironomid counts, the raw chaoborid counts, the chironomid counts aggregated by taxon code to match the taxonomy used in vwhoQuinlan 2010 dataset, and vector of the 44 taxon codes used in the model.
+- vwhoModel the model object constructed by the 'WA' function provided by 'rioja'
+- vwhoResults contains model ouput, relative abundance of the dipterans used in the model, relative abundances of all dipterans in the dataset
+- analogResults contains the output from the analog analyis, the close modern analogs, and the minimum dissimilarity values
+
+In addition, three plots are produced:
+
+- minimum dissimilarity between each sample interval and the calibration set data
+- sediment depth vs dipteran-inferred VWHO
+- a composite plot combining data from both graphs
+
+For example, to perform the analyses on the example dataset using a modern analog cutoff of 10, and only flagging counts with less than 40 individuals as low:
+```
+data(dipteranVWHOInput)
+dipteranVWHO(dipteranVWHOInput, evaluate=TRUE, percentileCut=10, lowCount=40)
+```
+<br>
+
+#### References
+Quinlan R, Smol JP (2001) Setting minimum head capsule abundance and taxa deletion criteria in chironomid-based inference models. Journal of Paleolimnology 26: 327-342
+
+Quinlan R, Smol JP (2001) Chironomid-based inference models for estimating end-of-summer hypolimnetic oxygen from south-central Ontario shield lakes. Freshwater Biology 46: 1529-1551
+
+Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inferring past hypolimnetic oxygen. Journal of Paleolimnology 44: 43-50
 
 ## interpDates
 `interpDates` interpolates dates for any undated intervals in a sediment core from the midpoint and age of the dated intervals, as well as the sectioning resolution.
@@ -501,6 +540,18 @@ Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inf
 <br>
 
 # Version History
+## v0.19 (Coming Soon)
+- the package is now hosted in a [github repository](https://github.com/shiggo/jezioro)
+- the RGuide vignette has been expanded
+
+**Additions**
+
+- new function: `dipteranVWHO`
+- new dataset: `dipteranVWHOInput`
+
+**Modifications**
+- `vrsChla`: the generated plot now displays points rather than a line
+
 ## v0.18 (Dec 2018)
 **Reorganization**
 
