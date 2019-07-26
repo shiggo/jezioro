@@ -18,6 +18,7 @@ The package includes the following functions (along with example data to illustr
 The package also contains some commonly used calibration sets to facilitate the construction of transfer functions for application to individual sediment cores:
 * *tpHall1996*: diatom-inferred TP calibration set of 54 south-central Ontario lakes described in Hall and Smol (1996)
 * *vwhoQuinlan2010*: dipteran-inferred VWHO calibration set of 54 south-central Ontario lakes described in Quinlan and Smol (2001; 2010)
+* *chirInfo*: summary of ecological informatoin for individual chironomid taxa
 
 
 ## Documentation
@@ -29,7 +30,7 @@ The package also contains two guides or vignettes:
 
 
 ## Dependencies
-The package requires an R version >= 2.10.
+The package requires an R version >= 3.5.0.
 
 The function *dipteranVWHO* depends on *analogue*, *plyr*, and *rioja*.
 

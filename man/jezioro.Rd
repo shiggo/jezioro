@@ -14,7 +14,7 @@ The \env{jezioro} package is a collection of functions and datasets intended for
 Package: \tab jezioro\cr
 Type: \tab Package\cr
 Version: \tab 0.19\cr
-Date: \tab 2019-06-10\cr
+Date: \tab 2019-07-26\cr
 License: \tab GPL (>= 2)\cr
 LazyLoad: \tab no\cr
 }
@@ -39,6 +39,8 @@ NOTE:\cr
 \env{jezioro} contains the following data sets:  
 
 \itemize{
+         \item \env{chirInfo} a data frame summarizing ecological informatoin for individual chironomid taxa
+n example input file for \env{cladCount} (rows are subfossils, columns are samples)
          \item \env{cladCountInput} an example input file for \env{cladCount} (rows are subfossils, columns are samples)
          \item \env{dipteranVWHOInput} an example input file for \env{dipteranVWHO}
          \item \env{vrsChlaInput} an example input file for \env{vrsChla} with sediment intervals as rows and spectrophotometer measurements for wavelengths 650-700 nm, measured every 2 nm
