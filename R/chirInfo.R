@@ -1,5 +1,5 @@
 #' @name chirInfo
-#' @title The Dipteran-Volume Weighted Hypolimnetic Oxygen (VWHO) Calibration Set from Quinlan and Smol 2010
+#' @title Chironomid ecological information
 #' @description \code{chirInfo} is a data frame tabulating several aspects of chironomid ecology into a single file. 
 #' 
 #' The \code{chirInfo} data frame contains the following 18 columns:

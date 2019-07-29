@@ -3,7 +3,7 @@
 \docType{data}
 \name{chirInfo}
 \alias{chirInfo}
-\title{The Dipteran-Volume Weighted Hypolimnetic Oxygen (VWHO) Calibration Set from Quinlan and Smol 2010}
+\title{Chironomid ecological information}
 \format{A data frame containing 211 observations of 18 variables.}
 \usage{
 chirInfo
