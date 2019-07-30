@@ -1,11 +1,12 @@
 #'vrsChla
 #'
 #'@description
-#'\code{vrsChla} infers chlorophyll a concentrations of sediments from spectral measurments of absorbance at wavelengths between 650-700 nm, following the approach described in Wolfe et al. (2006) and Michelutti et al. (2010).
+#'\code{vrsChla} infers chlorophyll a concentrations of sediments from spectral measurements of absorbance at wavelengths between 650-700 nm, following the approach described in Wolfe et al. (2006) and Michelutti et al. (2010).
 #'
-#'@usage vrsChla(d)
+#'@usage vrsChla(d, profilePlot = TRUE)
 #'
 #'@param d matrix or data frame containing the input data
+#'@param profilePlot (defaults to TRUE): logical to control whether to produce the plot of sediment depth vs. inferred chlorophyll a values
 #'
 #'@details The input data should be in the form of a matrix or data frame with 28 columns:
 #'\itemize{
@@ -29,7 +30,7 @@
 #'
 #'Wolfe AP, Vinebrooke RD, Michelutti N, Rivard B, Das B (2006) Experimental calibration of lake-sediment spectral reflectance to chlorophyll a concentrations: methodology and paleolimnological validation. Journal of Paleolimnology 36: 91-100
 
-vrsChla=function(d){
+vrsChla=function(d, profilePlot=TRUE){
 chla.data=d
 #Move the first column (interval labels) to row names and remove from table
 rownames(chla.data)=chla.data[,1]
@@ -74,6 +75,7 @@ for (i in 1:numrows){chla.work[i,52]=(0.0919*((sum(chla.work[i,]))-((chla.work[i
 # peak.area <-area.under.curve-area.under.line
 # chla.work[1,52] <- (0.0919*peak.area)+0.0011
 
+if (profilePlot==TRUE) {
 # Produces a figure of the chla over depth, scaled in a separate window
 limit=(max(rows)+0.1*(max(rows)))
 
@@ -86,8 +88,8 @@ plot(chla.work[,52],rows, type="p", pch=21, bg="black", cex =0.75, lwd=1, main=m
 # adds a line at 0.01 mg/g, indicating the limit of detection for the method
 abline(v=0.01, lwd=1.5, col="red")
 text(0.15, limit,"limit of detection \n (0.01 mg/g)", cex=0.8, col="red")
+}
 
-#
 chl.a.output <- matrix(data=NA,nrow=numrows, ncol=2, dimnames=list(c(rows),c("Core Depth(cm)","VRS-chla (mg/g dry wt)")))
 chl.a.output[,1]=rows
 chl.a.output[,2]=chla.work[,52]

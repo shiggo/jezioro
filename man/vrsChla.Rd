@@ -4,16 +4,18 @@
 \alias{vrsChla}
 \title{vrsChla}
 \usage{
-vrsChla(d)
+vrsChla(d, profilePlot = TRUE)
 }
 \arguments{
 \item{d}{matrix or data frame containing the input data}
+
+\item{profilePlot}{(defaults to TRUE): logical to control whether to produce the plot of sediment depth vs. inferred chlorophyll a values}
 }
 \value{
 \code{chl.a.output} table of the inferred chlorophyll a values (mg/g dry mass) for each interval.
 }
 \description{
-\code{vrsChla} infers chlorophyll a concentrations of sediments from spectral measurments of absorbance at wavelengths between 650-700 nm, following the approach described in Wolfe et al. (2006) and Michelutti et al. (2010).
+\code{vrsChla} infers chlorophyll a concentrations of sediments from spectral measurements of absorbance at wavelengths between 650-700 nm, following the approach described in Wolfe et al. (2006) and Michelutti et al. (2010).
 }
 \details{
 The input data should be in the form of a matrix or data frame with 28 columns:
