@@ -42,6 +42,8 @@ The package also contains some commonly used calibration sets to facilitate the 
 
 - `tpHall1996`: diatom-inferred TP calibration set of 54 south-central Ontario lakes described in Hall and Smol (1996)
 - `vwhoQuinlan2010`: dipteran-inferred VWHO calibration set of 54 south-central Ontario lakes described in Quinlan and Smol (2001; 2010)
+
+In addition, the `chirInfo` dataset tabulates several aspects of chironomid taxonomy/ecology into a single file to facilitate manipulation of chironomid data (i.e. sorting by littoral vs profundal etc.)
 <br>
 <br>
 
@@ -539,18 +541,44 @@ Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inf
 <br>
 <br>
 
+## chirInfo
+`chirInfo` is a data frame tabulating several aspects of chironomid ecology into a single file to facilitate sorting/manipulating chironomid data files. The data frame is currently organized as follows:
+
+- Column 1: taxon name
+- Columns 2-5: taxonomic information
+- Columns 6-11: ecological info taken from Brooks (2007)
+- Columns 12-15: ecological info taken from Coffman (1978)
+- Column 16: taxonomic codes used in Roberto Quinlan's PhD thesis and the 2001/2010 papers
+- Columns 17-18: optima/tolerances from the Quinlan 2010 VWHO model
+
+#### References
+Brooks SJ, Langdon PG, Heiri O (2007) The identification and use of Palaearctic Chironomidae larvae in paleoecology. Quat Res (London): Technical Guide no. 10.
+
+Coffman WP (1978) Chironomidae. pp. 345-376. In: Merrit, RW, Cummins KW (Eds). An introduction of aquatic insects of North America. Kendall Hunt Publishing, Dubuque, 441p
+
+Quinlan R, Smol JP (2001) Chironomid-based inference models for estimating end-of-summer hypolimnetic oxygen from south-central Ontario shield lakes. Freshwater Biology 46: 1529-1551
+
+Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inferring past hypolimnetic oxygen. Journal of Paleolimnology 44: 43-50
+<br>
+<br>
+
 # Version History
-## v0.19 (Coming Soon)
+## v0.19 (Sept 2019)
+**General**
+
 - the package is now hosted in a [github repository](https://github.com/shiggo/jezioro)
-- the RGuide vignette has been expanded
+- the RGuide vignette has grown substantially
 
 **Additions**
 
-- new function: `dipteranVWHO`
-- new dataset: `dipteranVWHOInput`
+- new function: `dipteranVWHO` (to aid in reconstructing VWHO using chironomid count info and the `vwhoQuinlan2010` calibration set)
+- new dataset: `dipteranVWHOInput` (example input data for the above)
+- new dataset: `chirInfo` (table summarizing several aspects of chironomid ecology)
 
 **Modifications**
+
 - `vrsChla`: the generated plot now displays points rather than a line
+- `vrsChla`: logical argument 'profilePlot' added to control whether plot is generated
 
 ## v0.18 (Dec 2018)
 **Reorganization**
