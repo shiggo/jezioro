@@ -11,7 +11,6 @@
 
 <meta name="author" content="Adam Jeziorski" />
 
-<meta name="date" content="2019-09-12" />
 
 <title>jezioro User Guide</title>
 
@@ -289,18 +288,18 @@ div.tocify {
 
 <h1 class="title toc-ignore"><code>jezioro</code> User Guide</h1>
 <h4 class="author">Adam Jeziorski</h4>
-<h4 class="date">2019-09-12</h4>
+<h4 class="date">Last Updated: 2019-09-13</h4>
 
 </div>
 
 
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>The <code>jezioro</code> package is a collection of functions and datasets intended for use by members of the Paleoecological Environmental Assessment and Research Laboratory (PEARL). The package is maintained Adam Jeziorski, and contains contributions from Adam Jeziorski, Joshua Thienpont, and Andrew Labaj. If you have any suggestions for its improvement please let us know.</p>
+<p>The <code>jezioro</code> package is a collection of functions and datasets intended for use by members of the Paleoecological Environmental Assessment and Research Laboratory (PEARL). The package is maintained by Adam Jeziorski, and contains contributions from Adam Jeziorski, Joshua Thienpont, and Andrew Labaj. If you have any suggestions for its improvement please let us know.</p>
 <p>The package includes the following functions (along with example data to illustrate their use):</p>
 <ul>
 <li><code>cladCount</code>: determine the number of individuals (and their relative abundances) represented in raw cladoceran subfossil data</li>
-<li><code>dipteranVWHO</code>: harmonize appropriately formatted chironomid/chaoborid count data with the Quinlan and Smol (2001, 2010) calibration set, construct their VWHO inference model, infer VWHO from the sample data, and perform an analog matching analysis between the sample data and the calibration set</li>
+<li><code>dipteranVWHO</code>: harmonize appropriately formatted chironomid/chaoborid sample data with the Quinlan and Smol (2001, 2010) calibration set, construct the VWHO inference model described in Quinlan and Smol (2001, 2010), infer VWHO from the sample data, and perform an analog matching analysis between the sample data and the calibration set</li>
 <li><code>interpDates</code>: interpolate dates for the undated intervals of a dated sediment core</li>
 <li><code>vrsChla</code>: infer lake sediment chlorophyll <em>a</em> concentrations from visible reflectance measurements</li>
 <li>the ‘binford’ functions collectively calculate <sup>210</sup>Pb dates for a sediment core using the methods described in Binford 1990, Schelske 1994, and Appleby 2001
@@ -320,7 +319,7 @@ div.tocify {
 <li><code>tpHall1996</code>: diatom-inferred TP calibration set of 54 south-central Ontario lakes described in Hall and Smol (1996)</li>
 <li><code>vwhoQuinlan2010</code>: dipteran-inferred VWHO calibration set of 54 south-central Ontario lakes described in Quinlan and Smol (2001; 2010)</li>
 </ul>
-<p>In addition, the <code>chirInfo</code> dataset tabulates several aspects of chironomid taxonomy/ecology into a single file to facilitate manipulation of chironomid data (i.e. sorting by littoral vs profundal etc.) <br> <br></p>
+<p>In addition, the <code>chirInfo</code> data set provides a table of several aspects of chironomid taxonomy/ecology to facilitate manipulation of chironomid data (e.g. sorting by littoral/profundal habitat preferences) <br> <br></p>
 </div>
 <div id="functions" class="section level1">
 <h1><span class="header-section-number">2</span> Functions</h1>

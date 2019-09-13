@@ -1,7 +1,7 @@
 ---
 title: "`jezioro` User Guide"
 author: "Adam Jeziorski"
-date: "`r Sys.Date()`"
+date: "Last Updated: `r Sys.Date()`"
 output: 
   html_document:
     toc: true
@@ -22,12 +22,12 @@ vignette: >
 library(jezioro)
 ```
 # Introduction
-The `jezioro` package is a collection of functions and datasets intended for use by members of the Paleoecological Environmental Assessment and Research Laboratory (PEARL). The package is maintained Adam Jeziorski, and contains contributions from Adam Jeziorski, Joshua Thienpont, and Andrew Labaj. If you have any suggestions for its improvement please let us know.
+The `jezioro` package is a collection of functions and datasets intended for use by members of the Paleoecological Environmental Assessment and Research Laboratory (PEARL). The package is maintained by Adam Jeziorski, and contains contributions from Adam Jeziorski, Joshua Thienpont, and Andrew Labaj. If you have any suggestions for its improvement please let us know.
 
 The package includes the following functions (along with example data to illustrate their use):  
 
 - `cladCount`: determine the number of individuals (and their relative abundances) represented in raw cladoceran subfossil data
-- `dipteranVWHO`: harmonize appropriately formatted chironomid/chaoborid count data with the Quinlan and Smol (2001, 2010) calibration set, construct their VWHO inference model, infer VWHO from the sample data, and perform an analog matching analysis between the sample data and the calibration set
+- `dipteranVWHO`: harmonize appropriately formatted chironomid/chaoborid sample data with the Quinlan and Smol (2001, 2010) calibration set, construct the VWHO inference model described in Quinlan and Smol (2001, 2010), infer VWHO from the sample data, and perform an analog matching analysis between the sample data and the calibration set
 - `interpDates`: interpolate dates for the undated intervals of a dated sediment core
 - `vrsChla`: infer lake sediment chlorophyll *a* concentrations from visible reflectance measurements
 - the 'binford' functions collectively calculate ^210^Pb dates for a sediment core using the methods described in Binford 1990, Schelske 1994, and Appleby 2001
@@ -43,7 +43,7 @@ The package also contains some commonly used calibration sets to facilitate the 
 - `tpHall1996`: diatom-inferred TP calibration set of 54 south-central Ontario lakes described in Hall and Smol (1996)
 - `vwhoQuinlan2010`: dipteran-inferred VWHO calibration set of 54 south-central Ontario lakes described in Quinlan and Smol (2001; 2010)
 
-In addition, the `chirInfo` dataset tabulates several aspects of chironomid taxonomy/ecology into a single file to facilitate manipulation of chironomid data (i.e. sorting by littoral vs profundal etc.)
+In addition, the `chirInfo` data set provides a table of several aspects of chironomid taxonomy/ecology to facilitate manipulation of chironomid data (e.g. sorting by littoral/profundal habitat preferences)
 <br>
 <br>
 
