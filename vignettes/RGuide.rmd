@@ -408,17 +408,24 @@ set.seed(0)
 corrplot(M, method = "number", col = "black", cl.pos = "n")
 ```
 
-##Species Diversity (Hill's N2)
+## Species Diversity (Hill's N2)
 Hill's N2 values (Hill 1973)^[Hill MO (1973) Diversity and evenness: a unifying notation and its consequences. Ecology 54: 427-432] can be calculated for your data using the `Hill.N2` function provided by the `rioja` package.
 ```
 N2=Hill.N2(input.data, margin=2)
 ```
 
-##Rarefaction
+## Rarefaction
 Rarefaction can be done using the `rarefy` function provided by the `vegan` package.
 ```
 ?rarefy
 ```
+
+## Age-Depth Modelling
+### Gamma Dating
+At PEARL, we currently use [ScienTissiME](http://www.scientissime.net/) to produce ^210^Pb chronologies.
+
+### Radiocarbon Dating
+For time-scales too long for ^210^Pb analyses, an implementation of the Bacon approach to age-depth modelling (i.e. using Bayesian statistics to reconstruct accumulation histories for deposits, by combining radiocarbon and other dates with prior information; Blaauw and Christen, 2011^[Blaauw M, Christen JA (2011) Flexible paleoclimate age-depth models using an autoregressive gamma process. Bayesian Analysis 6: 457-474]) is provided by the package `rbacon`.
 
 ## Ordination
 Tools to perform ordinations are provided by the `vegan` package.
@@ -600,6 +607,8 @@ ggplot(activities, aes(x=Lake, y=Pb210, ymin=Pb210-Pb210err, ymax=Pb210+Pb210err
 
 The `ggplot2` package is able to construct very complex figures ([click here for an extensive list of examples](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)), and there are extensive resources available detailing its use. However, at PEARL we occasionally need to break some of its rules (e.g multiple y-axes), thus `ggplot2` is not the best tool for producing stratigraphies that show both depth and age.
 
+## Composite Plots
+
 ## Basic Maps
 With the appropriate shapefiles, basic maps can be generated using `ggplot2` and `rgdal` (Bindings for the 'Geospatial' Data Abstraction Library).
 
@@ -639,8 +648,6 @@ map <- map +
   coord_map("lambert", lat0=40, lat1=60)
 print(map)
 ```
-
-## Composite Plots
 
 ## Stratigraphies
 Stratigraphies can be produced using the `strat.plot` function provided by the `rioja` package.
