@@ -6,6 +6,7 @@ The package includes the following functions (along with example data to illustr
 * *cladCount*: determine the number of individuals (and their relative abundances) represented in raw cladoceran subfossil data
 * *dipteranVWHO*: harmonize appropriately formatted chironomid/chaoborid sample data with the Quinlan and Smol (2001, 2010) calibration set, construct the VWHO inference model described in Quinlan and Smol (2001, 2010), infer VWHO from the sample data, and perform an analog matching analysis between the sample data and the calibration set
 * *interpDates*: interpolate dates for the undated intervals of a dated sediment core
+* *quickGAM*: apply the GAM fitting procedure described in Simpson 2018
 * *vrsChla*: infer chlorophyll *a* concentration in lake sediment from visible reflectance measurements
 * the 'binford' functions collectively calculate <sup>210</sup>Pb dates for a sediment core using the methods described in Binford 1990, Schelske 1994, and Appleby 2001
   * *binfordRho*: determine water content and dry sediment density for freeze-dried intervals of a sediment core
@@ -34,6 +35,7 @@ The package also contains two guides/vignettes:
 The package requires an R version >= 3.5.0.
 
 The function *dipteranVWHO* depends on *analogue*, *plyr*, and *rioja*.
+The function *quickGAM* depends on *mgcv*, *scam*, *ggplot2*, *cowplot*, *tidyr*, and *gratia*
 
 Several other dependencies are related to the various examples in the general guide vignette and include: *dplyr*, *ggplot2*, *knitr*, *magrittr*, *mapproj*, *rgdal*, and *rmarkdown*.
 

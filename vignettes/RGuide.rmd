@@ -415,14 +415,16 @@ N2=Hill.N2(input.data, margin=2)
 ```
 
 ## Rarefaction
-Rarefaction can be done using the `rarefy` function provided by the `vegan` package.
+Rarefaction is a method to correct for bias in species richness between samples of unequal size, by standardizing across samples to the number of species expected in a sample of the same total size as the smallest sample.
+
+This can be done within R using the `rarefy` function provided by the `vegan` package.
 ```
 ?rarefy
 ```
 
 ## Age-Depth Modelling
 ### Gamma Dating
-At PEARL, we currently use [ScienTissiME](http://www.scientissime.net/) to produce ^210^Pb chronologies.
+At PEARL, we currently use [ScienTissiME](http://www.scientissime.net/) to produce ^210^Pb chronologies. However, when reanalyzing cores dated prior to 2012-2013, they have been dated with the binford functions provided by the `jezioro` package.
 
 ### Radiocarbon Dating
 For time-scales too long for ^210^Pb analyses, an implementation of the Bacon approach to age-depth modelling (i.e. using Bayesian statistics to reconstruct accumulation histories for deposits, by combining radiocarbon and other dates with prior information; Blaauw and Christen, 2011^[Blaauw M, Christen JA (2011) Flexible paleoclimate age-depth models using an autoregressive gamma process. Bayesian Analysis 6: 457-474]) is provided by the package `rbacon`.

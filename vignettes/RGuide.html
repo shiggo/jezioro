@@ -640,14 +640,15 @@ corrplot(M, method = &quot;number&quot;, col = &quot;black&quot;, cl.pos = &quot
 </div>
 <div id="rarefaction" class="section level2">
 <h2><span class="header-section-number">4.6</span> Rarefaction</h2>
-<p>Rarefaction can be done using the <code>rarefy</code> function provided by the <code>vegan</code> package.</p>
+<p>Rarefaction is a method to correct for bias in species richness between samples of unequal size, by standardizing them to the number of species expected in a sample of the same total size as the smallest sample.</p>
+<p>This can be done within R using the <code>rarefy</code> function provided by the <code>vegan</code> package.</p>
 <pre><code>?rarefy</code></pre>
 </div>
 <div id="age-depth-modelling" class="section level2">
 <h2><span class="header-section-number">4.7</span> Age-Depth Modelling</h2>
 <div id="gamma-dating" class="section level3">
 <h3><span class="header-section-number">4.7.1</span> Gamma Dating</h3>
-<p>At PEARL, we currently use <a href="http://www.scientissime.net/">ScienTissiME</a> to produce <sup>210</sup>Pb chronologies.</p>
+<p>At PEARL, we currently use <a href="http://www.scientissime.net/">ScienTissiME</a> to produce <sup>210</sup>Pb chronologies. However, when reanalyzing cores dated prior to 2012-2013, they have been dated with the binford functions provided by the <code>jezioro</code> package.</p>
 </div>
 <div id="radiocarbon-dating" class="section level3">
 <h3><span class="header-section-number">4.7.2</span> Radiocarbon Dating</h3>
