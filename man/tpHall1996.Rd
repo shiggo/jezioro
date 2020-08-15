@@ -4,7 +4,9 @@
 \name{tpHall1996}
 \alias{tpHall1996}
 \title{The Diatom-Total Phosphorus Calibration Set from Hall and Smol 1996}
-\format{A data frame containing 425 observations of 57 variables}
+\format{
+A data frame containing 425 observations of 57 variables
+}
 \usage{
 tpHall1996
 }

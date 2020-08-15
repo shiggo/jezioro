@@ -4,7 +4,9 @@
 \name{binfordActivityInput}
 \alias{binfordActivityInput}
 \title{An example input file for \code{binfordActivity}}
-\format{a data frame containing 25 observations of 14 variables}
+\format{
+a data frame containing 25 observations of 14 variables
+}
 \usage{
 binfordActivityInput
 }

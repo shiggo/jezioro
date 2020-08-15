@@ -4,7 +4,9 @@
 \name{binfordRhoInput}
 \alias{binfordRhoInput}
 \title{An example input file for binfordRho}
-\format{a data frame containing 60 observations of 7 variables}
+\format{
+a data frame containing 60 observations of 7 variables
+}
 \usage{
 binfordRhoInput
 }

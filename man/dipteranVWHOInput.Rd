@@ -4,7 +4,9 @@
 \name{dipteranVWHOInput}
 \alias{dipteranVWHOInput}
 \title{An example input file for dipteranVWHO}
-\format{A data frame containing 154 observations of 7 variables.}
+\format{
+A data frame containing 154 observations of 7 variables.
+}
 \usage{
 dipteranVWHOInput
 }

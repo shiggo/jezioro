@@ -17,7 +17,7 @@ dipteranVWHO(d, evaluate=FALSE, percentileCut=5, lowCount=50)
 }
 \value{
 \code{output} list  of 4 sublists 
-#'\itemize{
+\itemize{
   \item formattedData contains the sample info, the raw chironomid counts, the raw chaoborid counts, the chironomid counts aggregated by taxon code to match the taxonomy used in vwhoQuinlan 2010 dataset, and vector of the 44 taxon codes used in the model.
   \item vwhoModel the model object constructed by the 'WA' function provided by 'rioja'
   \item vwhoResults contains model ouput, relative abundance of the dipterans used in the model, relative abundances of all dipterans in the dataset

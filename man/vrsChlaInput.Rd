@@ -4,7 +4,9 @@
 \name{vrsChlaInput}
 \alias{vrsChlaInput}
 \title{An example input file for \code{vrsChla}}
-\format{a data frame containing 25 observations of 27 variables.}
+\format{
+a data frame containing 25 observations of 27 variables.
+}
 \usage{
 vrsChlaInput
 }

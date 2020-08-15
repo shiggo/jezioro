@@ -4,7 +4,9 @@
 \name{cladCountInput}
 \alias{cladCountInput}
 \title{An example input file for cladCount}
-\format{a data frame containing 106 observations of 27 variables.}
+\format{
+a data frame containing 106 observations of 27 variables.
+}
 \usage{
 cladCountInput
 }

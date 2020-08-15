@@ -4,7 +4,9 @@
 \name{chirInfo}
 \alias{chirInfo}
 \title{Chironomid ecological information}
-\format{A data frame containing 211 observations of 18 variables.}
+\format{
+A data frame containing 211 observations of 18 variables.
+}
 \usage{
 chirInfo
 }

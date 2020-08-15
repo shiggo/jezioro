@@ -36,9 +36,9 @@ The package requires an R version >= 3.5.0.
 
 The function *dipteranVWHO* depends on *analogue*, *plyr*, and *rioja*.
 
-The function *quickGAM* depends on *mgcv*, *scam*, *ggplot2*, *cowplot*, *tidyr*, and *gratia*
+The function *quickGAM* depends on *mgcv*, *scam*, *ggplot2*, *cowplot*, *tidyr*, and *gratia*.
 
-Several other dependencies are related to the various examples in the general guide vignette and include: *dplyr*, *ggplot2*, *knitr*, *magrittr*, *mapproj*, *rgdal*, and *rmarkdown*.
+Several other dependencies are related to the various examples in the general guide vignette and include: *dplyr*, *knitr*, *magrittr*, *mapproj*, *rgdal*, and *rmarkdown*.
 
 
 ## Installation

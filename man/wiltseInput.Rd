@@ -4,7 +4,9 @@
 \name{wiltseInput}
 \alias{wiltseInput}
 \title{An example input file for \code{wiltseBrien} and \code{wiltseDecompose}}
-\format{a data frame containing 12 observations of 9 variables.}
+\format{
+a data frame containing 12 observations of 9 variables.
+}
 \usage{
 wiltseInput
 }

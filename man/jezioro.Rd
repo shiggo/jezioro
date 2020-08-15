@@ -13,8 +13,8 @@ The \env{jezioro} package is a collection of functions and datasets intended for
 \tabular{ll}{
 Package: \tab jezioro\cr
 Type: \tab Package\cr
-Version: \tab 0.19\cr
-Date: \tab 2019-09-12\cr
+Version: \tab 0.19.1\cr
+Date: \tab 2020-08-14\cr
 License: \tab GPL (>= 2)\cr
 LazyLoad: \tab no\cr
 }
@@ -25,6 +25,7 @@ LazyLoad: \tab no\cr
          \item \env{cladCount} determines the minimum number of individuals (and their relative abundances) represented in raw cladoceran subfossil count data
          \item \env{dipteranVWHO} harmonize appropriately formatted chironomid count data with the calibration set described in Quinlan and Smol (2001, 2010), construct the described VWHO model, infer VWHO from the chironomid sample data using the model, and perform an analog matching analysis between the sample data and the calibration set 
          \item \env{interpDates} interpolates dates for undated intervals of a dated sediment core
+	 \item \env{quickGAM} fit a GAM and perform the related analyses described in Simpson (2018)
          \item \env{vrsChla} infers sediment chlorophyll a concentrations from measurements of visible reflectance
          \item \env{binfordRho} calculates percent water and dry sediment density for individual freeze-dried intervals from a sediment core (values are interpolated for intervals that were not freeze-dried)
          \item \env{binfordActivity} determines corrected 210Pb, 214Bi and 137Cs activities from the appropriate Region of Interest (ROI) values (i.e. output from the gamma counter) and generates a plot of the activities vs. sediment depth
@@ -59,6 +60,8 @@ Maintainer: Adam Jeziorski <ajezzz@gmail.com>
 }
 \references{
 Hall RI, Smol JP (1996) Paleolimnological assessment of long-term water-quality changes in south-central Ontario lakes affected by cottage development and acidification. Canadian Journal of Fisheries and Aquatic Sciences 53: 1-17
+
+Simpson GL (2018) Modelling Palaeoecological Time Series Using Generalised Additive Models. Frontiers in Ecology and Evolution DOI:10.3389/fevo.2018.00149
 
 Quinlan R, Smol JP (2001) Chironomid-based inference models for estimating end-of-summer hypolimnetic oxygen from south-central Ontario shield lakes. Freshwater Biology 46: 1529-1551
 

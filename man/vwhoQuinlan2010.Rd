@@ -4,7 +4,9 @@
 \name{vwhoQuinlan2010}
 \alias{vwhoQuinlan2010}
 \title{The Dipteran-Volume Weighted Hypolimnetic Oxygen (VWHO) Calibration Set from Quinlan and Smol 2010}
-\format{A data frame containing 54 observations of 47 variables.}
+\format{
+A data frame containing 54 observations of 47 variables.
+}
 \usage{
 vwhoQuinlan2010
 }

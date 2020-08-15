@@ -1,15 +1,15 @@
 Package: jezioro
 Type: Package
 Title: Tools for Paleolimnological Analyses at the Paleoecological Environmental Assessment and Research Laboratory 
-Version: 0.19
-Date: 2019-09-12
+Version: 0.19.1
+Date: 2020-08-14
 Author: Adam Jeziorski
 Maintainer: Adam Jeziorski <ajezzz@gmail.com>
-Depends: analogue, plyr, rioja, R (>= 3.5.0)
+Depends: analogue, plyr, rioja, ggplot2, nlme, mgcv, scam, cowplot, tidyr, gratia, R (>= 3.5.0)
 Encoding: UTF-8
 Description: A collection of functions and data sets for use in the paleolimnological analyses performed at the Paleoecological Environmental Assessment and Research Laboratory (Queen's University, Canada).
 License: GPL-2
 LazyData: false
-Suggests: dplyr, ggplot2, knitr, magrittr, mapproj, rgdal, rmarkdown
+Suggests: dplyr, knitr, magrittr, mapproj, rgdal, rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
