@@ -8,7 +8,7 @@
 #'   \item Column 3+: count of each taxon/subfossil remain type
 #'   }
 #' @docType data
-#' @usage cladCountInput
+#' @usage data(cladCountInput)
 #' @format a data frame containing 106 observations of 27 variables.
 #' @author Adam Jeziorski
 NULL

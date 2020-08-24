@@ -8,7 +8,7 @@
 a data frame containing 25 observations of 27 variables.
 }
 \usage{
-vrsChlaInput
+data(vrsChlaInput)
 }
 \description{
 This dataset demonstrates the required input format for \code{vrsChla} 

@@ -8,7 +8,7 @@
 a data frame containing 60 observations of 7 variables
 }
 \usage{
-binfordRhoInput
+data(binfordRhoInput)
 }
 \description{
 This dataset demonstrates the required input format for \code{binfordRho} when intervals are subsampled prior to analysis

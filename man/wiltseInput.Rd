@@ -8,7 +8,7 @@
 a data frame containing 12 observations of 9 variables.
 }
 \usage{
-wiltseInput
+data(wiltseInput)
 }
 \description{
 This dataset is used to demonstrate the use of the two functions included in Brendan Wiltse's PhD thesis \code{wiltseBrien} and \code{wiltseDecompose}

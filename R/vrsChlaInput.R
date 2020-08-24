@@ -7,7 +7,7 @@
 #'   \item Columns 2-27: values from the spectrophotometer for wavelengths 650-700 nm, measured every 2 nm
 #'   }
 #' @docType data
-#' @usage vrsChlaInput
+#' @usage data(vrsChlaInput)
 #' @format a data frame containing 25 observations of 27 variables.
 #' @author Adam Jeziorski
 NULL

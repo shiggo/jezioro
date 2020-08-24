@@ -10,7 +10,7 @@
 #'   \item Column 4+: Sample data
 #'   }
 #' @docType data
-#' @usage dipteranVWHOInput
+#' @usage data(dipteranVWHOInput)
 #' @format A data frame containing 154 observations of 7 variables.
 NULL
 "dipteranVWHOInput"

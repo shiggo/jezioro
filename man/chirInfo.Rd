@@ -8,7 +8,7 @@
 A data frame containing 211 observations of 18 variables.
 }
 \usage{
-chirInfo
+data(chirInfo)
 }
 \description{
 \code{chirInfo} is a data frame tabulating several aspects of chironomid ecology into a single file. 

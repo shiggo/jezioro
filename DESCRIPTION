@@ -5,11 +5,11 @@ Version: 0.19.1
 Date: 2020-08-14
 Author: Adam Jeziorski
 Maintainer: Adam Jeziorski <ajezzz@gmail.com>
-Depends: analogue, plyr, rioja, ggplot2, nlme, mgcv, scam, cowplot, tidyr, gratia, R (>= 3.5.0)
 Encoding: UTF-8
 Description: A collection of functions and data sets for use in the paleolimnological analyses performed at the Paleoecological Environmental Assessment and Research Laboratory (Queen's University, Canada).
 License: GPL-2
 LazyData: false
+Depends: analogue, ggplot2, plyr, rioja, nlme, mgcv, gratia, R (>= 3.5.0)
 Suggests: dplyr, knitr, magrittr, mapproj, rgdal, rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1

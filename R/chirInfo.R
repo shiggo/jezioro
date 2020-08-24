@@ -20,7 +20,7 @@
 #' Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inferring past hypolimnetic oxygen. Journal of Paleolimnology 44: 43-50
 #' 
 #' @docType data
-#' @usage chirInfo
+#' @usage data(chirInfo)
 #' @format A data frame containing 211 observations of 18 variables.
 NULL
 "chirInfo"

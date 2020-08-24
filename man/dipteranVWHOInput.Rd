@@ -8,7 +8,7 @@
 A data frame containing 154 observations of 7 variables.
 }
 \usage{
-dipteranVWHOInput
+data(dipteranVWHOInput)
 }
 \description{
 This dataset demonstrates the required input format for \code{dipteranVWHO}

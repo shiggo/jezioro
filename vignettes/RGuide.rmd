@@ -552,8 +552,15 @@ Davies Test
 ## GAMs
 Generalized Additive Models (or GAMs) can be constructed using the `mgcv` package.
 
-Simpson (In Review)^[Simpson GL (In Review) Modelling palaeoecological time series using generalized additive models.](https://www.biorxiv.org/content/10.1101/322248v1) provides a detailed introduction to the use of GAMs and their construction using R (the supplementary info also contains the annotated R code used to perform the described analyses).
+GAMs are increasingly applied in paleolimnological analyses because:
 
+- Time series from the sediment record are often irregularly spaced in time, complicating the use of classical statistical time series models.
+- Paleolimnological analyses of temporal trends often use linear regressions or (non-)parametric correlations despite potential violations of the underlying assumptions that likely occur due to temporal dependencies within the dataset.
+- LOESS estimated trends contain inherent subjectivity regarding the parameters chosen to achieve the LOESS fit (e.g. the span)
+- GAMS are statistical models that can be used to estimate trends as smooth functions of time; however, unlike LOESS, GAMs use automatic smoothness selection methods to objectively determine the complexity of the fitted trend.
+- As formal statistical models, GAMs allow for potentially complex, non-linear trends, provide an account of model uncertainty, and can identify periods of significant temporal change.
+
+Simpson (2018)^[Simpson GL (2018) Modelling Palaeoecological Time Series Using Generalised Additive Models. Frontiers in Ecology and Evolution doi:10.3389/fevo.2018.00149] provides a detailed introduction to the use of GAMs and their construction using R (the supplementary information for the article contains the annotated R code used to perform the described analyses).
 
 # Advanced Usage
 ## Data Manipulation Verbs

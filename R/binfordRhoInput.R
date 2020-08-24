@@ -15,7 +15,7 @@
 #'Columns 1-3 will have values for the entire core length
 #'Columns 4-7 will only have values for the intervals prepared for dating by freeze-drying
 #' @docType data
-#' @usage binfordRhoInput
+#' @usage data(binfordRhoInput)
 #' @format a data frame containing 60 observations of 7 variables
 #' @author Adam Jeziorski
 NULL

@@ -8,7 +8,7 @@
 a data frame containing 106 observations of 27 variables.
 }
 \usage{
-cladCountInput
+data(cladCountInput)
 }
 \description{
 This dataset demonstrates the required input format for \code{cladCount}

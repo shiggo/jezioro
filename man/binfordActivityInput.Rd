@@ -8,7 +8,7 @@
 a data frame containing 25 observations of 14 variables
 }
 \usage{
-binfordActivityInput
+data(binfordActivityInput)
 }
 \description{
 This dataset demonstrates the required input format for \code{binfordActivity}.

@@ -6,7 +6,7 @@
 #'   \item Columns 2-9: PCA axis-1 scores for the dominant diatom species in 8 lakes
 #'   }
 #' @docType data
-#' @usage wiltseInput
+#' @usage data(wiltseInput)
 #' @format a data frame containing 12 observations of 9 variables.
 #' @author Brendan Wiltse
 NULL

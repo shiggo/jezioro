@@ -188,6 +188,52 @@ Blaauw M, Heegaard E (2012) 12. Estimation of age-depth relationships. In: Birks
 <br>
 <br>
 
+## quickGAM
+`quickGAM` is a function to fit a GAM and perform the related analyses described in Simpson (2018). This function essentially applies the code provided in that article's Supplementary Information, to a pair of vectors.
+
+Two vectors are required for input data (x=the independent variable, y=the dependent variable), and the arguments *xLabel*, *yLabel*, and *yRange*, are optional and simply allow customization of both axis labels and the range of the y-axis to ensure they remain consistent across the produced plots.
+
+For example, using the example chlorophyll *a* profile provided in `vrsChlaInput`, fitting a GAM between sediment depth (x) and the inferred-chlorophyll *a* values (y) can be done as follows:
+
+Read in the example data set:
+```
+data(vrsChlaInput)
+```
+
+The three optional arguments can be used to provide consistency across each of the output plots.
+```
+indepVarLabel <- "Core Depth (cm)"
+depenVarLabel <- expression("VRS-Inferred Chlorophyll "~italic("a")~" (mg"%.%"g"^"-1"*textstyle(")"))
+depenVarRange <- c(0, 0.0825)
+```
+
+If you aren't interested in using the optional arguments, using 'drop=FALSE' when reading in the data can be used to preserve column names for use in the plots.
+
+```
+quickGAM(plotData[,1, drop=FALSE],plotData[,2, drop=FALSE], xLabel = indepVarLabel, yLabel = depenVarLabel, yRange = depenVarRange)
+```
+
+The function will produce six plots:
+
+- A simple scatterplot of the input data
+
+- Estimated CAR1 process from the GAM fitted to the input data ( i.e. an autocorrelation check)
+
+- GAM-based trends fitted to the input data
+
+- Estimated trends (w 20 random draws of the GAM fit to the input data)
+
+- 95% simultaneous confidence intervals (light grey) and across-the-function confidence intervals (dark grey) on the estimated trends.
+
+- Estimated first derivatives (black lines) and 95% simultaneous confidence intervals of the GAM trends fitted to the data. Where the simultaneous interval does not include 0, the models detect significant temporal change in the response.
+
+
+
+#### References
+Simpson GL (2018) Modelling Palaeoecological Time Series Using Generalised Additive Models. Frontiers in Ecology and Evolution [https://dx.doi.org/10.3389/fevo.2018.00149]
+<br>
+<br>
+
 ## vrsChla
 `vrsChla` infers chlorophyll *a* concentrations of sediments from spectral measurements of absorbance at wavelengths between 650-700 nm, following the approach described in Wolfe et al. (2006) and Michelutti et al. (2010), and reviewed in Michelutti and Smol (2016).
 
@@ -563,6 +609,15 @@ Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inf
 <br>
 
 # Version History
+## v0.20 (Sept 2020)
+**General**
+
+- more contributions to the RGuide
+
+**Additions**
+
+- new function: `quickGAM` (a function to fit a GAM and perform the related analyses described in Simpson (2018)))
+
 ## v0.19 (Sept 2019)
 **General**
 

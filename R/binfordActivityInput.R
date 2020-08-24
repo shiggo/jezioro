@@ -19,7 +19,7 @@
 #'  \item HTinTube: height (mm) of the sediment added to the gamma tube, generally measured to 3 decimal places using an accurate set of calipers
 #'  }
 #' @docType data
-#' @usage binfordActivityInput
+#' @usage data(binfordActivityInput)
 #' @format a data frame containing 25 observations of 14 variables
 #' @author Adam Jeziorski
 NULL

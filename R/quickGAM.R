@@ -13,13 +13,15 @@
 #'
 #'@details Two input vectors are required (x and y, the independent and dependent variable respectively). The optional arguments allow customization of the x and y axes labels to ensure they remain consistent across all graphs. Similarly the y-range can be manually defined.
 #'
-#'The function produces six plots: 
-#' 1) Basic scatterplot of the data
-#' 2) Estimated CAR1 process from the GAM fitted to the data ( i.e. autocorrelation check)
-#' 3) GAM-based trends fitted to the data
-#' 4) Estimated trends (w 20 random draws of the GAM fit to the data)
-#' 5) 95% simultaneous confidence intervals (light grey) and across-the-function confidence intervals (dark grey) on the estimated trends.
-#' 6) Estimated first derivatives (black lines) and 95% simultaneous confidence intervals of the GAM trends fitted to the data. Where the simultaneous interval does not include 0, the models detect significant temporal change in the response.
+#'The function produces six plots:
+#'\itemize{
+#' \item Basic scatterplot of the data
+#' \item Estimated CAR1 process from the GAM fitted to the data ( i.e. autocorrelation check)
+#' \item GAM-based trends fitted to the data
+#' \item Estimated trends (w 20 random draws of the GAM fit to the data)
+#' \item 95\% simultaneous confidence intervals (light grey) and across-the-function confidence intervals (dark grey) on the estimated trends.
+#' \item Estimated first derivatives (black lines) and 95\% simultaneous confidence intervals of the GAM trends fitted to the data. Where the simultaneous interval does not include 0, the models detect significant temporal change in the response.
+#'   }
 #'
 #'@examples
 #'#Fit a GAM to the example chlorophyll a data in 'vrsChlaInput'

@@ -8,7 +8,7 @@
 A data frame containing 425 observations of 57 variables
 }
 \usage{
-tpHall1996
+data(tpHall1996)
 }
 \description{
 \code{tpHall1996} is a 425x57 data frame containing the total phosphorus (TP) measurements and sedimentary diatom assemblage data for the 54 lake south-central Ontario calibration set from Hall and Smol (1996). 

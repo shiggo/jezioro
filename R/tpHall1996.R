@@ -15,7 +15,7 @@
 #'   \item Rows 2-425: Diatom relative abundance data by taxon
 #' }
 #' @docType data
-#' @usage tpHall1996
+#' @usage data(tpHall1996)
 #' @format A data frame containing 425 observations of 57 variables
 NULL
 "tpHall1996"
