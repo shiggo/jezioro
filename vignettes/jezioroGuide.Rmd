@@ -24,11 +24,12 @@ library(jezioro)
 # Introduction
 The `jezioro` package is a collection of functions and datasets intended for use by members of the Paleoecological Environmental Assessment and Research Laboratory (PEARL). The package is maintained by Adam Jeziorski, and contains contributions from Adam Jeziorski, Joshua Thienpont, and Andrew Labaj. If you have any suggestions for its improvement please let us know.
 
-The package includes the following functions (along with example data to illustrate their use):  
+The package includes the following functions (along with some example data sets to illustrate their use):  
 
 - `cladCount`: determine the number of individuals (and their relative abundances) represented in raw cladoceran subfossil data
 - `dipteranVWHO`: harmonize appropriately formatted chironomid/chaoborid sample data with the Quinlan and Smol (2001, 2010) calibration set, construct the VWHO inference model described in Quinlan and Smol (2001, 2010), infer VWHO from the sample data, and perform an analog matching analysis between the sample data and the calibration set
 - `interpDates`: interpolate dates for the undated intervals of a dated sediment core
+- `quickGAM`: performs the GAM fitting procedure and related analyses described in Simpson 2018
 - `vrsChla`: infer lake sediment chlorophyll *a* concentrations from visible reflectance measurements
 - the 'binford' functions collectively calculate ^210^Pb dates for a sediment core using the methods described in Binford 1990, Schelske 1994, and Appleby 2001
     - `binfordRho`: determine water content and dry sediment density for freeze-dried intervals of a sediment core
@@ -38,12 +39,12 @@ The package includes the following functions (along with example data to illustr
     - `wiltseBrien`: perform the Brien test (Brien et al. 1984) on variables contained within a data frame
     - `wiltseDecompose`: build upon the Brien test by identifying homogenous and coherent subsets within the correlation matrix
 
-The package also contains some commonly used calibration sets to facilitate the construction of transfer functions for application to individual sediment cores:
+The package also contains some commonly used calibration sets to aid the construction of the relevant transfer functions for application to fossil assemblages:
 
 - `tpHall1996`: diatom-inferred TP calibration set of 54 south-central Ontario lakes described in Hall and Smol (1996)
 - `vwhoQuinlan2010`: dipteran-inferred VWHO calibration set of 54 south-central Ontario lakes described in Quinlan and Smol (2001; 2010)
 
-In addition, the `chirInfo` data set provides a table of several aspects of chironomid taxonomy/ecology to facilitate manipulation of chironomid data (e.g. sorting by littoral/profundal habitat preferences)
+The `chirInfo` data set tabulates several aspects of chironomid taxonomy/ecology to facilitate manipulation of chironomid data (e.g. sorting by littoral/profundal habitat preferences)
 <br>
 <br>
 
@@ -97,13 +98,16 @@ Similarly, to return the relative abundances of only those taxa with greater tha
 data(cladCountInput)
 cladCount(cladCountInput, percCutoff=4, sampleCutoff=2, outputType='gt')
 ```
+
+<br>
+
 #### References
 Korhola A, Rautio M (2001) 2. Cladocera and other branchiopod crustaceans. In: Smol JP, Birks HJB, Last WM (eds.) Tracking Environmental Change Using Lake Sediments. Volume 4: Zoological Indicators. Kluwer Academic Publishers, Dordrecht, The Netherlands, pp 4-41
 <br>
 <br>
 
 ## dipteranVWHO
-`dipteranVWHO` harmonizes chironomid/chaoborid count data with the taxonomy used in the Quinlan and Smol (2001, 2010) calibration set, returns the chironomid inferred volume weighted hypolimnetic oxygen concentrations (VWHO) from the sample data using the inference model described in Quinlan and Smol (2001, 2010), and also performs an analog matching between the sample data and the calibration set.
+`dipteranVWHO` harmonizes chironomid/chaoborid count data with the taxonomy used in the Quinlan and Smol (2001, 2010) calibration set, returns the chironomid inferred volume weighted hypolimnetic oxygen concentrations (VWHO) from the sample data using the inference model described in Quinlan and Smol (2001, 2010), and also performs some analog matching between the sample data and the calibration set.
 
 The required format of the input data is provided in an example data set `dipteranVWHOInput`
 
@@ -131,6 +135,7 @@ For example, to perform the analyses on the example dataset using a modern analo
 data(dipteranVWHOInput)
 dipteranVWHO(dipteranVWHOInput, evaluate=TRUE, percentileCut=10, lowCount=40)
 ```
+
 <br>
 
 #### References
@@ -183,51 +188,56 @@ interpDates(interpDates.input, intervalWidth)
 ```
 For more involved approaches to the estimation of age-depth relationships consult Blaauw and Heegaard (2012).
 
+<br>
+
 #### References
 Blaauw M, Heegaard E (2012) 12. Estimation of age-depth relationships. In: Birks HJB, Lotter AF, Juggins S, Smol JP (eds.) Tracking Environmental Change Using Lake Sediments. Volume 5: Data Handling and Numerical Techniques. Springer, Netherlands, pp 379-413
 <br>
 <br>
 
 ## quickGAM
-`quickGAM` is a function to fit a GAM and perform the related analyses described in Simpson (2018). This function essentially applies the code provided in that article's Supplementary Information, to a pair of vectors.
+`quickGAM` fits a GAM along with the related analyses described in Simpson 2018. This function applies the code provided in the Simpson 2018 Supplementary Information.
 
-Two vectors are required for input data (x=the independent variable, y=the dependent variable), and the arguments *xLabel*, *yLabel*, and *yRange*, are optional and simply allow customization of both axis labels and the range of the y-axis to ensure they remain consistent across the produced plots.
+Input data must be composed of two vectors:
 
-For example, using the example chlorophyll *a* profile provided in `vrsChlaInput`, fitting a GAM between sediment depth (x) and the inferred-chlorophyll *a* values (y) can be done as follows:
+- *x*: the independent variable
+- *y*: the dependent variable
+
+The output of 'quickGAM' is modified by three optional arguments, that can be used to ensure the axis labels and y-axis range remain consistent across all the output plots.
+
+- *xLabel* (defaults to NULL)
+- *yLabel* (defaults to NULL)
+- *yRange* (defaults to NULL)
+
+`quickGAM` returns a series of six plots:
+- A simple scatterplot of the input data
+- Estimated CAR1 process from the GAM fitted to the input data ( i.e. an autocorrelation check)
+- GAM-based trends fitted to the input data
+- Estimated trends (w 20 random draws of the GAM fit to the input data)
+- 95% simultaneous confidence intervals (light grey) and across-the-function confidence intervals (dark grey) on the estimated trends.
+- Estimated first derivatives (black lines) and 95% simultaneous confidence intervals of the GAM trends fitted to the data. Where the simultaneous interval does not include 0, the models detect significant temporal change in the response.
+
+For example, to fit a GAM between sediment depth (x) and the inferred-chlorophyll *a* values (y) provided in the example data set  `vrsChlaInput`:
 
 Read in the example data set:
 ```
 data(vrsChlaInput)
 ```
 
-The three optional arguments can be used to provide consistency across each of the output plots.
+The optional arguments allow for consistent output plots.
 ```
 indepVarLabel <- "Core Depth (cm)"
 depenVarLabel <- expression("VRS-Inferred Chlorophyll "~italic("a")~" (mg"%.%"g"^"-1"*textstyle(")"))
 depenVarRange <- c(0, 0.0825)
 ```
 
-If you aren't interested in using the optional arguments, using 'drop=FALSE' when reading in the data can be used to preserve column names for use in the plots.
+Note, that to use the default values for the plots, using 'drop=FALSE' when reading in data can preserve column names for use in the plots.
 
 ```
 quickGAM(plotData[,1, drop=FALSE],plotData[,2, drop=FALSE], xLabel = indepVarLabel, yLabel = depenVarLabel, yRange = depenVarRange)
 ```
 
-The function will produce six plots:
-
-- A simple scatterplot of the input data
-
-- Estimated CAR1 process from the GAM fitted to the input data ( i.e. an autocorrelation check)
-
-- GAM-based trends fitted to the input data
-
-- Estimated trends (w 20 random draws of the GAM fit to the input data)
-
-- 95% simultaneous confidence intervals (light grey) and across-the-function confidence intervals (dark grey) on the estimated trends.
-
-- Estimated first derivatives (black lines) and 95% simultaneous confidence intervals of the GAM trends fitted to the data. Where the simultaneous interval does not include 0, the models detect significant temporal change in the response.
-
-
+<br>
 
 #### References
 Simpson GL (2018) Modelling Palaeoecological Time Series Using Generalised Additive Models. Frontiers in Ecology and Evolution [https://dx.doi.org/10.3389/fevo.2018.00149]
@@ -265,6 +275,8 @@ For example, to determine the chlorophyll *a* concentrations of `vrsChlaInput` a
 data(vrsChlaInput)
 vrsChla(vrsChlaInput)
 ```
+
+<br>
 
 #### References
 Michelutti N, Blais JM, Cumming BF, Paterson AM, Ruhland K, Wolfe AP, Smol JP (2010) Do spectrally inferred determinations of chlorophyll a reflect trends in lake trophic status? Journal of Paleolimnology 43: 208-217
@@ -408,6 +420,8 @@ The output table from `binfordActivity` is intended to be used as input for `bin
 - Column 7: 18-Corr137CsErr - corrected ^137^Cs error (dpm/g)
 - Column 8: 8-DateCorr - number of days between core collection and analysis of the interval
 
+<br>
+
 #### References
 Schelske CL, Peplow A, Brenner M, Spencer CN (1994) Low-background gamma counting: applications for ^210^Pb dating of sediments Journal of Paleolimnology 10: 115-128
 <br>
@@ -470,6 +484,8 @@ dates <- binfordDates(binfordRho(binfordRhoInput), binfordActivity(binfordActivi
 dates <- dates[,c(3,13)]
 interpDates(dates, 0.5)
 ```
+
+<br>
 
 #### References
 Binford MW (1990) Calculation and uncertainty analysis of 210PB dates for PIRLA project lake sediment cores. Journal of Paleolimnology 3: 253-267
@@ -535,6 +551,8 @@ wiltseBrien(wiltseInput[,match(c("ELA224", "ELA468", "ELA129"), colnames(wiltseI
 matplot(wiltseInput$Date, wiltseInput[,match(c("ELA224", "ELA468", "ELA129"), colnames(wiltseInput))], ylim=c(-4,4),bty="n", type="l", xlab="Year", ylab="PCA Axis 1 Score")
 ```
 
+<br>
+
 #### References
 Brien CJ, Venables WN, James AT, Mayo O (1984) An analysis of correlation matrices: equal correlations. Biometrika 71: 545-54
 
@@ -561,6 +579,8 @@ The 425x57 data frame is composed of the following:
 
 **NOTE:** The genus/species names included in the data frame are those used in Hall and Smol (1996). Due to changes in taxonomic nomenclature since its publication, applying the model to more recent data will likely require some taxonomic harmonization.
 
+<br>
+
 #### References
  Hall RI, Smol JP (1996) Paleolimnological assessment of long-term water-quality changes in south-central Ontario lakes affected by cottage development and acidification. Canadian Journal of Fisheries and Aquatic Sciences 53: 1-17
 <br>
@@ -580,6 +600,8 @@ Information on each lake (i.e. latitude, longitude, etc.) and the 44 taxa includ
 
 **NOTE:** The taxonomic information included in the data frame are those used in Quinlan and Smol (2001,2010). Due to changes in taxonomic nomenclature since its publication, applying the model to more recent data will likely require some taxonomic harmonization.
 
+<br>
+
 #### References
 Quinlan R, Smol JP (2001) Chironomid-based inference models for estimating end-of-summer hypolimnetic oxygen from south-central Ontario shield lakes. Freshwater Biology 46: 1529-1551
 
@@ -596,6 +618,8 @@ Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inf
 - Columns 12-15: ecological info taken from Coffman (1978)
 - Column 16: taxonomic codes used in Roberto Quinlan's PhD thesis and the 2001/2010 papers
 - Columns 17-18: optima/tolerances from the Quinlan 2010 VWHO model
+
+<br>
 
 #### References
 Brooks SJ, Langdon PG, Heiri O (2007) The identification and use of Palaearctic Chironomidae larvae in paleoecology. Quat Res (London): Technical Guide no. 10.
@@ -616,7 +640,7 @@ Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inf
 
 **Additions**
 
-- new function: `quickGAM` (a function to fit a GAM and perform the related analyses described in Simpson (2018)))
+- new function: `quickGAM` (performs the GAM fitting procedure and related analyses described in Simpson 2018)
 
 ## v0.19 (Sept 2019)
 **General**
