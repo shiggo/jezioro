@@ -4,12 +4,14 @@
 \alias{wiltseDecompose}
 \title{wiltseDecompose}
 \usage{
-wiltseDecompose(my.data, print.detail=F)
+wiltseDecompose(my.data, print.detail=F, return.detail=F)
 }
 \arguments{
 \item{my.data}{A data frame containing the variables to be tested. The variables should be arranged in columns with appropriate column names}
 
 \item{print.detail}{(Defaults to FALSE): logical to indicate whether to display output from \code{wiltseBrien} for each step of the process. It is recommended that this is set to TRUE when first using the function to better understand the process of matrix decomposition.}
+
+\item{return.detail}{(Defaults to FALSE): logical to indicate whether to return the full list output for further manipulation.}
 }
 \value{
 \code{output} table of results for use with other functions.

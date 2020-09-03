@@ -48,7 +48,7 @@ Objects are the fundamental elements of the R programming language. Within R, an
 
 Most objects have a class attribute that provides some definition regarding the type of data it contains. Classes include things like 'character', 'numeric', 'logical', 'data.frame' and 'function'.
 
-Functions are the principal tools used in R. Functions are objects that can take arguments as input, and return a new object as output. Some are quite simple (e.g. `mean` returns the mean value of a numeric object), whereas others are much more complex (e.g. those used to perform ordinations). Many different functions are available within a base installation of R; however, as you become familiar with R, it becomes possible to write functions of your own, that can be shared via packages.
+Functions are the principal tools used in R. Functions are objects that can take arguments as input, and return a new object as output. Some are quite simple (e.g. `mean` returns the mean value of a numeric object), whereas others are much more complex (e.g. those used to perform ordinations). Many different functions are available within a base installation of R; however, as you become familiar with R, it becomes possible to write functions of your own, that can be shared via scripts and packages.
 
 ## Packages
 All  R  functions  and  datasets  are  stored  in packages, including everything contained within a base install of R. However, this base functionality can be extended through external packages that contain additional functions (along with relevant documentation). It may be helpful to view this relationship as packages are the 'apps' available for the R 'operating system'. The main source for external packages is the [Comprehensive R Archive Network (CRAN) repository](https://cran.r-project.org/web/packages/) (the 'app store' in the OS analogy).
@@ -547,6 +547,10 @@ Regression trees can be constructed using the `rpart` package.
 
 ## Breakpoint Analysis
 Davies Test
+
+
+## LOESS
+Locally Estimated Scatterplot Smoothing (LOESS) can be performed using the `loess` function provided by the bast `stats` package.
 
 
 ## GAMs

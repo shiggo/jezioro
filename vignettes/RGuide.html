@@ -1511,7 +1511,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">An Introduction to using R at PEARL</h1>
 <h4 class="author">Adam Jeziorski</h4>
-<h4 class="date">Last Updated: 2020-08-24</h4>
+<h4 class="date">Last Updated: 2020-08-26</h4>
 
 </div>
 
@@ -1537,7 +1537,7 @@ div.tocify {
 <h2><span class="header-section-number">2.3</span> Objects, Classes, and Functions</h2>
 <p>Objects are the fundamental elements of the R programming language. Within R, an object is simply a data structure with some attributes. Therefore, essentially everything that you work with during an R session will be an object of some kind.</p>
 <p>Most objects have a class attribute that provides some definition regarding the type of data it contains. Classes include things like ‘character’, ‘numeric’, ‘logical’, ‘data.frame’ and ‘function’.</p>
-<p>Functions are the principal tools used in R. Functions are objects that can take arguments as input, and return a new object as output. Some are quite simple (e.g. <code>mean</code> returns the mean value of a numeric object), whereas others are much more complex (e.g. those used to perform ordinations). Many different functions are available within a base installation of R; however, as you become familiar with R, it becomes possible to write functions of your own, that can be shared via packages.</p>
+<p>Functions are the principal tools used in R. Functions are objects that can take arguments as input, and return a new object as output. Some are quite simple (e.g. <code>mean</code> returns the mean value of a numeric object), whereas others are much more complex (e.g. those used to perform ordinations). Many different functions are available within a base installation of R; however, as you become familiar with R, it becomes possible to write functions of your own, that can be shared via scripts and packages.</p>
 </div>
 <div id="packages" class="section level2">
 <h2><span class="header-section-number">2.4</span> Packages</h2>
@@ -1993,8 +1993,12 @@ vignette(&quot;analogue_methods&quot;)</code></pre>
 <h2><span class="header-section-number">4.14</span> Breakpoint Analysis</h2>
 <p>Davies Test</p>
 </div>
+<div id="loess" class="section level2">
+<h2><span class="header-section-number">4.15</span> LOESS</h2>
+<p>Locally Estimated Scatterplot Smoothing (LOESS) can be performed using the <code>loess</code> function provided by the bast <code>stats</code> package.</p>
+</div>
 <div id="gams" class="section level2">
-<h2><span class="header-section-number">4.15</span> GAMs</h2>
+<h2><span class="header-section-number">4.16</span> GAMs</h2>
 <p>Generalized Additive Models (or GAMs) can be constructed using the <code>mgcv</code> package.</p>
 <p>GAMs are increasingly applied in paleolimnological analyses because:</p>
 <ul>

@@ -9,10 +9,11 @@
 #'
 #'This function is detailed in Brendan Wiltse's PhD thesis and calculates the grand mean, main effects interactions and equal correlation for the correlation matrix and returns the degrees of freedom, chi-squared value and p-value for each test. 
 #'
-#'@usage wiltseDecompose(my.data, print.detail=F)
+#'@usage wiltseDecompose(my.data, print.detail=F, return.detail=F)
 #'
 #'@param my.data A data frame containing the variables to be tested. The variables should be arranged in columns with appropriate column names
 #'@param print.detail (Defaults to FALSE): logical to indicate whether to display output from \code{wiltseBrien} for each step of the process. It is recommended that this is set to TRUE when first using the function to better understand the process of matrix decomposition.
+#'@param return.detail (Defaults to FALSE): logical to indicate whether to return the full list output for further manipulation.
 #'
 #'@details \code{wiltseDecompose} A complete description of the Brien's test can be found in Brien et al. 1984, and the procedure for matrix decomposition follows the methodology described in Rusak et al. 1999
 #'
@@ -31,7 +32,7 @@
 #'Wiltse B (2014) The response of Discostella species to climate change at the Experimental Lakes Area, Canada. PhD Thesis Queen's University
 #'@export
 
-wiltseDecompose=function(my.data, print.detail=F){
+wiltseDecompose=function(my.data, print.detail=F, return.detail=F){
   #Run Brien on original data set
   BrienOut=wiltseBrien(my.data, print=print.detail, print.detail=print.detail)
   #Assign data set to new variable
@@ -60,5 +61,6 @@ Remain")
   cat(coherentsubset, '\n', BrienOut$grandmean, '\n', '\n',
       "Significance Tests", '\n')
   print(BrienOut[[1]])
+  if(return.detail != F){return(BrienOut)}
 }
 
