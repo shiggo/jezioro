@@ -1,8 +1,8 @@
 Package: jezioro
 Type: Package
 Title: Tools for Paleolimnological Analyses at the Paleoecological Environmental Assessment and Research Laboratory 
-Version: 0.19.1
-Date: 2020-08-14
+Version: 0.20
+Date: 2020-09-04
 Author: Adam Jeziorski
 Maintainer: Adam Jeziorski <ajezzz@gmail.com>
 Encoding: UTF-8

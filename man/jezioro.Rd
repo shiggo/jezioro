@@ -13,8 +13,8 @@ The \env{jezioro} package is a collection of functions and datasets intended for
 \tabular{ll}{
 Package: \tab jezioro\cr
 Type: \tab Package\cr
-Version: \tab 0.19.1\cr
-Date: \tab 2020-08-14\cr
+Version: \tab 0.20\cr
+Date: \tab 2020-09-04\cr
 License: \tab GPL (>= 2)\cr
 LazyLoad: \tab no\cr
 }

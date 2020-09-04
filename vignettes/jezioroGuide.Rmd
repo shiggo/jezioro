@@ -500,7 +500,7 @@ The Wiltse functions `wiltseBrien` and `wiltseDecompose` test for homogeneity an
 ### wiltseBrien
 `wiltseBrien` performs the Brien test (Brien et al. 1984) on variables contained within a data frame, calculating the grand mean, main effects interactions and equal correlation for a correlation matrix of the z-scored data and returns the degrees of freedom, chi-squared value and p-value for each test.
 
-The input data should bea data frame with the variables to be tested arranged in columns with appropriate column names. An example data set is provided by `wiltseInput' that contains dates in column 1, and the rest of the columns are PCA axis-1 scores for the dominant diatom taxa in 8 lakes in the ELA. A plot of the data shows the trends through time.
+The input data should be a data frame with the variables to be tested arranged in columns with appropriate column names. An example data set is provided by `wiltseInput' that contains dates in column 1, and the rest of the columns are PCA axis-1 scores for the dominant diatom taxa in 8 lakes in the ELA. A plot of the data shows the trends through time.
 
 ``` {r}
 data(wiltseInput)
@@ -641,6 +641,7 @@ Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inf
 **Additions**
 
 - new function: `quickGAM` (performs the GAM fitting procedure and related analyses described in Simpson 2018)
+- new logical argument - `return.detail` added to `wiltseDecompose` to allow return of the full list output for further manipulation
 
 ## v0.19 (Sept 2019)
 **General**
@@ -666,7 +667,7 @@ Quinlan R, Smol JP (2010) Use of Chaoborus subfossil mandibles in models for inf
 
 **Additions**
 
--  new functions: `wiltseBrien` and `wiltseDecompose` (from Brendan Wiltse's 2014 PhD thesis)
+- new functions: `wiltseBrien` and `wiltseDecompose` (from Brendan Wiltse's 2014 PhD thesis)
 - new dataset: `wiltseInput` (Dates + PCA Axis 1 scores of major diatom taxa x 8 lakes)
 - new documentation: a general guide to using R at PEARL has been added to the package as a vignette. Accessed with the command vignette("RGuide"). Note that this is still a work in progress.
 

@@ -4,7 +4,7 @@
 \alias{quickGAM}
 \title{quickGAM}
 \usage{
-quickGAM(x, y, xLabel = NULL, yLabel = NULL, yRange = NULL)
+quickGAM(x, y, xLabel = NULL, yLabel = NULL, yRange = NULL, skipAuto = FALSE)
 }
 \arguments{
 \item{x}{vector containing the independent data/linear predictor}
@@ -16,6 +16,8 @@ quickGAM(x, y, xLabel = NULL, yLabel = NULL, yRange = NULL)
 \item{yLabel}{(defaults to NULL): optional custom string to ensure consistent y-axis labels across the plots}
 
 \item{yRange}{(defaults to NULL): optional custom range to ensure consistent y-axis across all plots}
+
+\item{skipAuto}{(Defaults to FALSE): logical to indicate whether to skip the autocorrelation calculation and plot}
 }
 \description{
 \code{quickGAM} is a function to fit a GAM and perform the related analyses described in Simpson (2018). This function essentially applies the code provided in that article's Supplementary Information, to a pair of vectors.
